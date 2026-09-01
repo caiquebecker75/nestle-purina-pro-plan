@@ -233,6 +233,47 @@ body.hot #dot{transform:scale(1.6)}
 .pic .cap{position:relative;z-index:2;padding:var(--pad);width:100%;display:flex;flex-direction:column;gap:clamp(12px,1.5vw,24px)}
 .pic .fo{position:relative;z-index:2;margin:0 var(--pad) clamp(14px,2vw,26px)}
 
+/* ══ galeria da visita técnica ══ */
+.vtg{display:grid;grid-template-columns:.78fr 1.22fr;gap:clamp(18px,3vw,56px);align-items:stretch;flex:1;min-height:0}
+.vtwrap{position:relative;min-height:clamp(220px,50vh,640px)}
+.mos{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:1fr 1fr;gap:clamp(5px,.6vw,10px);
+  opacity:0;visibility:hidden;transition:opacity .45s ease,visibility .45s}
+.mos.on{opacity:1;visibility:visible}
+.mos .vtile:first-child{grid-row:span 2}
+.vtile{position:relative;overflow:hidden;border-radius:3px;background:var(--char);border:none;padding:0;cursor:pointer;min-height:0;color:var(--paper)}
+.vtile img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.82) contrast(1.03);
+  transition:transform .7s cubic-bezier(.16,.86,.26,1),filter .4s}
+.vtile:hover img{transform:scale(1.06);filter:saturate(1)}
+.vtile::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 0 var(--red);transition:box-shadow .25s;pointer-events:none}
+.vtile:hover::after{box-shadow:inset 0 0 0 2px var(--red)}
+.vtile .cp{position:absolute;left:0;right:0;bottom:0;padding:1.6em .8em .6em;text-align:left;
+  font-family:var(--mono);font-size:clamp(7px,.62vw,9.6px);letter-spacing:.12em;text-transform:uppercase;line-height:1.3;
+  color:rgba(247,247,248,.92);background:linear-gradient(0deg,rgba(0,0,0,.78),transparent);
+  opacity:0;transform:translateY(6px);transition:.3s}
+.vtile:hover .cp,.vtile:focus-visible .cp{opacity:1;transform:none}
+.vtile .zm{position:absolute;top:.6em;right:.6em;width:1.7em;height:1.7em;border-radius:50%;background:rgba(11,11,12,.65);display:grid;place-items:center;
+  font-size:clamp(9px,.8vw,12px);opacity:0;transition:.3s}
+.vtile .zm svg{width:55%;height:55%;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round}
+.vtile:hover .zm{opacity:1}
+.s.on .mos.on .vtile{animation:rise .7s cubic-bezier(.16,.86,.26,1) backwards}
+.mos .vtile:nth-child(1){animation-delay:.45s}.mos .vtile:nth-child(2){animation-delay:.52s}.mos .vtile:nth-child(3){animation-delay:.59s}
+.mos .vtile:nth-child(4){animation-delay:.66s}.mos .vtile:nth-child(5){animation-delay:.73s}.mos .vtile:nth-child(6){animation-delay:.8s}.mos .vtile:nth-child(7){animation-delay:.87s}
+.vtb li{font-size:clamp(10.5px,.98vw,15.5px)}
+/* lightbox */
+.light{position:fixed;inset:0;background:rgba(11,11,12,.97);color:var(--paper);z-index:400;display:none;flex-direction:column;
+  padding:clamp(14px,2.2vw,32px) var(--pad);gap:clamp(10px,1.2vw,18px)}
+.light.open{display:flex;animation:mf .22s ease}
+.light .top{display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:var(--mono);
+  font-size:clamp(8.4px,.72vw,11px);letter-spacing:.18em;text-transform:uppercase;opacity:.75}
+.light .stage{flex:1;min-height:0;display:grid;place-items:center;cursor:default}
+.light .stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:3px;box-shadow:0 30px 80px -30px rgba(0,0,0,.9);
+  animation:fadeup .35s ease}
+.light .cap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:clamp(8px,.95vw,14px);border-top:1px solid rgba(247,247,248,.22)}
+.light .cap b{font-family:var(--disp);font-weight:800;font-stretch:92%;text-transform:uppercase;font-size:clamp(12px,1.3vw,21px);letter-spacing:-.01em}
+.light .cap .st{font-family:var(--mono);font-size:clamp(8px,.7vw,10.4px);letter-spacing:.16em;text-transform:uppercase;opacity:.55;display:block;margin-top:.4em}
+.light .nav .nb:hover{background:var(--red);color:#fff}
+@media(max-width:900px){.vtg{grid-template-columns:1fr}.vtwrap{min-height:64vw}.mos{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr)}.mos .vtile:nth-child(n+7){display:none}}
+
 /* ══ render slots ══ */
 .shot{position:relative;overflow:hidden;background:var(--char);border-radius:4px;min-height:0}
 .shot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.16,.86,.26,1)}
@@ -252,13 +293,27 @@ body.hot #dot{transform:scale(1.6)}
 .ph .in span{font-family:var(--mono);font-size:clamp(7.4px,.66vw,10px);letter-spacing:.14em;text-transform:uppercase;opacity:.6}
 .s.on .shot{animation:rise .8s cubic-bezier(.16,.86,.26,1) .5s backwards}
 @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-.shot.note::after{content:"Imagens ilustrativas · renders finais em produção";position:absolute;left:0;right:0;bottom:0;padding:.75em .9em .6em;
+.shot.note::after{content:"Renders ilustrativos · dimensionamento final após levantamento técnico";position:absolute;left:0;right:0;bottom:0;padding:.75em .9em .6em;
   font-family:var(--mono);font-size:clamp(6.6px,.6vw,9px);letter-spacing:.1em;text-transform:uppercase;color:rgba(247,247,248,.82);pointer-events:none;
   background:linear-gradient(0deg,rgba(0,0,0,.8),rgba(0,0,0,.35) 62%,transparent)}
 .gal{display:grid;gap:clamp(7px,.9vw,15px);flex:1;min-height:0}
 .gal.a{grid-template-columns:1.4fr 1fr;grid-template-rows:1fr 1fr}
 .gal.a .shot:first-child{grid-row:span 2}
-.gal .shot{height:100%}
+.gal .shot{height:100%;background:#000;border:none;padding:0;cursor:pointer;color:inherit;text-align:left}
+.gal .shot.fit img{object-fit:contain}
+.gal.b{grid-template-columns:1.55fr 1fr 1fr;grid-template-rows:1fr 1fr}
+.gal.b .shot:first-child{grid-row:span 2}
+@media(max-width:900px){.gal.b{grid-template-columns:1fr 1fr;grid-template-rows:none}.gal.b .shot:first-child{grid-column:span 2;grid-row:auto}}
+.gal .shot::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 0 var(--red);transition:box-shadow .25s;pointer-events:none;z-index:3}
+.gal .shot:hover::after{box-shadow:inset 0 0 0 2px var(--red)}
+/* figura dos pilares em render */
+.pane .fig.pic{position:relative;max-width:none;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:4px;background:#000;border:none;padding:0;cursor:pointer;color:var(--paper)}
+.pane .fig.pic img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.16,.86,.26,1)}
+.pane .fig.pic:hover img{transform:scale(1.04)}
+.pane .fig.pic .cp{position:absolute;left:0;right:0;bottom:0;padding:1.6em .8em .6em;text-align:left;font-family:var(--mono);font-size:clamp(7px,.62vw,9.6px);
+  letter-spacing:.12em;text-transform:uppercase;color:rgba(247,247,248,.92);background:linear-gradient(0deg,rgba(0,0,0,.78),transparent)}
+.pane .fig.pic::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 0 var(--red);transition:box-shadow .25s;pointer-events:none}
+.pane .fig.pic:hover::after{box-shadow:inset 0 0 0 2px var(--red)}
 @media(max-width:900px){.gal{flex:none}.gal.a{grid-template-columns:1fr;grid-template-rows:none}.gal.a .shot:first-child{grid-row:auto}.gal .shot{height:auto;aspect-ratio:16/10}}
 
 /* ══ xadrez Purina (capa) ══ */
@@ -515,23 +570,29 @@ body.hot #dot{transform:scale(1.6)}
 </section>
 
 <!-- 03 ─────────── O PARADOXO (VT) ─────────── -->
-<section class="s pic">
-  <div class="img">
-    <img src="assets/vt-loja-panoramica.jpg" alt="Dog's Day Vila Olímpia · loja densa" class="on" data-store="vo">
-    <img src="assets/vt-03.jpg" alt="Dog's Day Pinheiros · corredor estreito" data-store="pi">
-  </div>
-  <div class="scrim"></div>
-  <div class="cap">
-    <span class="eyebrow">02 · O paradoxo · visita técnica 31/08/2026</span>
-    <h2 class="mega sm"><span class="ln"><i>Marca super premium.</i></span><span class="ln"><i>Experiência de <em>commodity.</em></i></span></h2>
-    <div class="chips" id="stores">
-      <button class="chip on" data-store="vo"><svg class="ic"><use href="#i-store"/></svg>Vila Olímpia</button>
-      <button class="chip" data-store="pi"><svg class="ic"><use href="#i-store"/></svg>Pinheiros</button>
-    </div>
-    <div class="g g3 keep" style="max-width:min(72vw,900px)">
-      <div class="stat fu"><span class="ico ghost"><svg><use href="#i-eye"/></svg></span><div class="lb">Sem território</div><div class="sb" id="st1">Pro Plan aparece, mas some no meio da poluição visual.</div></div>
-      <div class="stat fu"><span class="ico ghost"><svg><use href="#i-arrows"/></svg></span><div class="lb">Corredor estreito</div><div class="sb" id="st2">Qualquer volume de piso aperta a circulação.</div></div>
-      <div class="stat fu"><span class="ico ghost"><svg><use href="#i-alert"/></svg></span><div class="lb">Escolha difícil</div><div class="sb" id="st3">Dezenas de sacos e nenhuma orientação.</div></div>
+<section class="s">
+  <div class="meta"><span class="l">02 · O paradoxo · visita técnica</span><span class="r">Dog's Day · 31/08/2026 · clique nas fotos</span></div>
+  <div class="hair"></div><div class="bar"></div>
+  <div class="body" style="gap:clamp(10px,1.4vw,22px)">
+    <div class="vtg">
+      <div class="stack" style="gap:clamp(10px,1.3vw,22px);justify-content:center">
+        <span class="eyebrow">O que vimos</span>
+        <h2 class="mega xs"><span class="ln"><i>Marca super</i></span><span class="ln"><i>premium.</i></span><span class="ln"><i>Experiência de</i></span><span class="ln"><i><em>commodity.</em></i></span></h2>
+        <div class="chips" id="stores">
+          <button class="chip on" data-store="vo"><svg class="ic"><use href="#i-store"/></svg>Vila Olímpia</button>
+          <button class="chip" data-store="pi"><svg class="ic"><use href="#i-store"/></svg>Pinheiros</button>
+        </div>
+        <ul class="bl vtb fu">
+          <li><svg class="ic"><use href="#i-eye"/></svg><span id="st1">Pro Plan aparece, mas some no meio da poluição visual.</span></li>
+          <li><svg class="ic"><use href="#i-arrows"/></svg><span id="st2">Loja maior, mas sem área ociosa para display de piso.</span></li>
+          <li><svg class="ic"><use href="#i-alert"/></svg><span id="st3">Dezenas de sacos e nenhuma orientação de escolha.</span></li>
+        </ul>
+        <span class="disc" id="vtn">10 fotos · Vila Olímpia</span>
+      </div>
+      <div class="vtwrap">
+        <div class="mos on" data-store="vo"></div>
+        <div class="mos" data-store="pi"></div>
+      </div>
     </div>
   </div>
   <div class="fo">
@@ -623,7 +684,7 @@ body.hot #dot{transform:scale(1.6)}
             <li><svg class="ic"><use href="#i-check"/></svg><span>Cresce na <b>vertical</b>, não no chão.</span></li>
           </ul>
         </div>
-        <div class="fig"><svg viewBox="0 0 200 130"><rect x="20" y="18" width="160" height="94" rx="3"/><rect x="20" y="18" width="160" height="16" class="rf"/><text x="28" y="29" fill="#fff" style="fill:#fff">SKIN · TESTEIRA</text><rect x="20" y="42" width="160" height="10" class="r"/><text x="28" y="49.5">SKIN · RÉGUA</text><rect x="30" y="58" width="30" height="46" class="kf"/><rect x="66" y="58" width="30" height="46" class="kf"/><rect x="102" y="58" width="30" height="46" class="kf"/><rect x="138" y="58" width="30" height="46" class="kf"/><text x="20" y="124">CORE FRAME · PERMANENTE</text><path d="M188 18v94" class="r"/><text x="180" y="12" class="big">↑</text></svg></div>
+        <button class="fig pic" data-lb="rd:5" aria-label="Skin · troca da testeira de categoria"><img src="assets/render-amb-05.jpg" alt="Skin · troca da testeira de categoria"><span class="cp">Skin · troca da testeira de categoria</span></button>
       </div>
       <div class="pane">
         <div class="stack">
@@ -634,7 +695,7 @@ body.hot #dot{transform:scale(1.6)}
             <li><svg class="ic"><use href="#i-target"/></svg><span><b>Nível 3</b> · na prateleira: porte, benefício e variante.</span></li>
           </ul>
         </div>
-        <div class="fig"><svg viewBox="0 0 200 130"><rect x="10" y="20" width="180" height="26" class="rf"/><text x="18" y="37" class="big" style="fill:#fff">PRO PLAN</text><rect x="10" y="54" width="86" height="18" class="kf"/><rect x="104" y="54" width="86" height="18" class="kf"/><text x="16" y="66" style="fill:#fff">FILHOTE</text><text x="110" y="66" style="fill:#fff">SÊNIOR</text><rect x="10" y="80" width="40" height="30" class="r"/><rect x="56" y="80" width="40" height="30" class="r"/><rect x="104" y="80" width="40" height="30" class="r"/><rect x="150" y="80" width="40" height="30" class="r"/><text x="14" y="98">PORTE P</text><text x="60" y="98">PORTE M</text><text x="108" y="98">PORTE G</text><text x="154" y="98">BENEF.</text><text x="10" y="124">NÍVEL 1 → 2 → 3</text></svg></div>
+        <button class="fig pic" data-lb="rd:7" aria-label="Navegação · necessidade × fase de vida"><img src="assets/render-amb-06.jpg" alt="Navegação · necessidade × fase de vida"><span class="cp">Navegação · necessidade × fase de vida</span></button>
       </div>
       <div class="pane">
         <div class="stack">
@@ -645,7 +706,7 @@ body.hot #dot{transform:scale(1.6)}
             <li><svg class="ic"><use href="#i-shield"/></svg><span>O erro de execução fica <b>operacionalmente difícil.</b></span></li>
           </ul>
         </div>
-        <div class="fig"><svg viewBox="0 0 200 130"><rect x="20" y="20" width="70" height="60" rx="3" class="kf"/><rect x="110" y="20" width="70" height="60" rx="3"/><rect x="20" y="86" width="70" height="20" rx="2" class="rf"/><text x="27" y="99" style="fill:#fff">SÊNIOR · P</text><rect x="110" y="86" width="70" height="20" rx="2"/><text x="117" y="99">SÊNIOR · P</text><path d="M92 50h16M104 46l4 4-4 4" class="r"/><path d="M92 96h16M104 92l4 4-4 4" class="r"/><text x="20" y="124">SKU + COMUNICAÇÃO MOVEM JUNTOS</text></svg></div>
+        <button class="fig pic" data-lb="rd:6" aria-label="Gaveta de serviço · cartuchos e etiquetas"><img src="assets/render-amb-03.jpg" alt="Gaveta de serviço · cartuchos e etiquetas"><span class="cp">Gaveta de serviço · cartuchos e etiquetas</span></button>
       </div>
       <div class="pane">
         <div class="stack">
@@ -656,7 +717,7 @@ body.hot #dot{transform:scale(1.6)}
             <li><svg class="ic"><use href="#i-chart"/></svg><span><b>Retail Health Score</b>: nota de saúde de cada ativo.</span></li>
           </ul>
         </div>
-        <div class="fig"><svg viewBox="0 0 200 130"><rect x="20" y="16" width="160" height="96" rx="4"/><rect x="30" y="26" width="28" height="28" class="kf"/><text x="66" y="36">ATIVO #0042 · PINHEIROS</text><text x="66" y="48">ÚLTIMA VISITA · 14 DIAS</text><rect x="30" y="66" width="140" height="8" rx="4"/><rect x="30" y="66" width="128" height="8" rx="4" class="rf"/><text x="30" y="90">HEALTH SCORE</text><text x="120" y="92" class="big">92 / 100</text><text x="30" y="104">SKU OK · FRENTES OK · LUZ OK</text></svg></div>
+        <button class="fig pic" data-lb="rd:9" aria-label="Abastecimento e conferência do ativo"><img src="assets/render-amb-02.jpg" alt="Abastecimento e conferência do ativo"><span class="cp">Abastecimento e conferência do ativo</span></button>
       </div>
     </div>
   </div>
@@ -675,11 +736,14 @@ body.hot #dot{transform:scale(1.6)}
       <h2 class="mega xs"><span class="ln"><i>O território <em>em imagem.</em></i></span></h2>
       <p class="say fu" style="max-width:34ch;font-size:clamp(11px,1.05vw,16px)">Presença vertical, navegação clara e <b>zero avanço no corredor.</b></p>
     </div>
-    <div class="gal a">
-      <div class="shot note"><span class="cp">Render 01 · Vista do corredor</span><img src="assets/render-01.jpg" alt="Render · vista do corredor" onerror="this.parentNode.classList.add('empty')"><div class="ph"><div class="in"><svg viewBox="0 0 24 24"><use href="#i-image"/></svg><b>Render 01</b><span>Vista do corredor · Core</span></div></div></div>
-      <div class="shot"><span class="cp">Render 02 · Navegação de prateleira</span><img src="assets/render-02.jpg" alt="Render · navegação" onerror="this.parentNode.classList.add('empty')"><div class="ph"><div class="in"><svg viewBox="0 0 24 24"><use href="#i-sign"/></svg><b>Render 02</b><span>Navegação em 3 níveis</span></div></div></div>
-      <div class="shot"><span class="cp">Render 03 · SKU Cartridge em detalhe</span><img src="assets/render-03.jpg" alt="Render · SKU Cartridge" onerror="this.parentNode.classList.add('empty')"><div class="ph"><div class="in"><svg viewBox="0 0 24 24"><use href="#i-tag"/></svg><b>Render 03</b><span>SKU Cartridge · detalhe</span></div></div></div>
+    <div class="gal b">
+      <button class="shot note" data-lb="rd:0"><span class="cp">Render · Território no corredor</span><img src="assets/render-amb-01.jpg" alt="Render · território Pro Plan ambientado no corredor"></button>
+      <button class="shot fit" data-lb="rd:1"><span class="cp">Sistema completo · frontal</span><img src="assets/render-01.jpg" alt="Render · vista frontal"></button>
+      <button class="shot" data-lb="rd:8"><span class="cp">Ponta de gôndola</span><img src="assets/render-amb-07.jpg" alt="Render · ponta de gôndola iluminada"></button>
+      <button class="shot" data-lb="rd:5"><span class="cp">Skin · troca de testeira</span><img src="assets/render-amb-05.jpg" alt="Render · troca da testeira de categoria"></button>
+      <button class="shot fit" data-lb="rd:3"><span class="cp">Perspectiva</span><img src="assets/render-03.jpg" alt="Render · perspectiva"></button>
     </div>
+    <span class="disc">10 renders · clique para ampliar</span>
   </div>
   <div class="fo">
     <div class="bd"><img src="assets/75lab-wordmark-paper.png" alt="75 LAB"><span class="x">×</span><span class="pp sm"><svg class="cb"><use href="#cbd"/></svg><span class="tx"><b>Pro Plan</b></span></span></div>
@@ -709,7 +773,7 @@ body.hot #dot{transform:scale(1.6)}
           <div class="mt"><span class="k">Intervenção</span><span class="b"><i data-m="1"></i></span><span class="p" data-mp="1">0%</span></div>
           <div class="mt"><span class="k">Camada digital</span><span class="b"><i data-m="2"></i></span><span class="p" data-mp="2">0%</span></div>
         </div>
-        <div class="shot" id="cfgshot"><span class="cp" id="cfgcp">Render · Compact</span><img id="cfgimg" src="assets/render-compact.jpg" alt="Render da configuração"><div class="ph"><div class="in"><svg viewBox="0 0 24 24"><use href="#i-image"/></svg><b id="cfgph">Render · Compact</b><span>espaço reservado</span></div></div></div>
+        <div class="shot" id="cfgshot" style="background:#000"><span class="cp" id="cfgcp">Render · Compact</span><img id="cfgimg" src="assets/render-compact.jpg" alt="Render da configuração" style="object-fit:contain"><div class="ph"><div class="in"><svg viewBox="0 0 24 24"><use href="#i-image"/></svg><b id="cfgph">Render · Compact</b><span>espaço reservado</span></div></div></div>
       </div>
     </div>
   </div>
@@ -788,6 +852,16 @@ body.hot #dot{transform:scale(1.6)}
 
 </main>
 
+<!-- lightbox da visita técnica -->
+<div class="light" id="lb" role="dialog" aria-label="Foto da visita técnica">
+  <div class="top"><span id="lbh">Visita técnica · registro fotográfico</span><button class="nb" id="lbx" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
+  <div class="stage"><img id="lbimg" src="" alt=""></div>
+  <div class="cap">
+    <div><b id="lbcap"></b><span class="st" id="lbst"></span></div>
+    <div class="nav"><button class="nb" id="lbp" aria-label="Anterior"><svg><use href="#al"/></svg></button><span class="pg" id="lbn">01 / 10</span><button class="nb" id="lbnx" aria-label="Próxima"><svg><use href="#ar"/></svg></button></div>
+  </div>
+</div>
+
 <!-- índice -->
 <div class="menu" id="menu">
   <div class="mh"><span class="t">Índice</span><button class="nb" id="mx" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
@@ -861,6 +935,12 @@ body.hot #dot{transform:scale(1.6)}
 
   document.addEventListener('keydown',function(e){
     if(menu.classList.contains('open')){ if(e.key==='Escape')menu.classList.remove('open'); return; }
+    if(lb&&lb.classList.contains('open')){
+      if(e.key==='Escape')lb.classList.remove('open');
+      if(e.key==='ArrowRight'){e.preventDefault();window.__lbStep(1)}
+      if(e.key==='ArrowLeft'){e.preventDefault();window.__lbStep(-1)}
+      return;
+    }
     if(['ArrowRight','PageDown',' '].indexOf(e.key)>-1){e.preventDefault();go(i+1)}
     if(['ArrowLeft','PageUp'].indexOf(e.key)>-1){e.preventDefault();go(i-1)}
     if(e.key==='Home'){e.preventDefault();go(0)}
@@ -879,7 +959,7 @@ body.hot #dot{transform:scale(1.6)}
   if(!window.matchMedia('(pointer:coarse)').matches){
     var c=document.getElementById('cur'), d=document.getElementById('dot');
     var mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my,dx2=mx,dy2=my,on=false;
-    var H='button,a,.chip,.row,.step,.ml li,[data-go],.tab,.cfg,.shot';
+    var H='button,a,.chip,.row,.step,.ml li,[data-go],.tab,.cfg,.shot,.vtile,[data-lb]';
     c.classList.add('off');d.classList.add('off');
     document.addEventListener('mousemove',function(e){
       mx=e.clientX;my=e.clientY;
@@ -912,22 +992,90 @@ body.hot #dot{transform:scale(1.6)}
     seqT=setTimeout(tick,700);
   }
 
-  /* lojas (VT) */
+  /* galeria da visita técnica + lightbox */
+  var lb=document.getElementById('lb');
   (function(){
     var box=document.getElementById('stores'); if(!box)return;
-    var imgs=document.querySelectorAll('.pic .img img');
+    var VT={
+      vo:{n:"Dog's Day Vila Olímpia",p:[
+        ['assets/vt/vo-06.jpg','Ponto natural Pro Plan · só etiqueta de preço'],
+        ['assets/vt/vo-02.jpg','Fachada · entrada da loja'],
+        ['assets/vt/vo-13.jpg','Corredor principal · disputa visual'],
+        ['assets/vt/vo-20.jpg','Pro Plan na gôndola · sem navegação'],
+        ['assets/vt/vo-24.jpg','Gôndola de parede · sortimento denso'],
+        ['assets/vt/vo-08.jpg','Circulação · pouco espaço para piso'],
+        ['assets/vt/vo-16.jpg','Corredor de ração · leitura difícil'],
+        ['assets/vt/vo-00.jpg','Estacionamento e fachada'],
+        ['assets/vt/vo-27.jpg','Sachês · concorrência organizada'],
+        ['assets/vt/vo-25.jpg','Corredor lateral']]},
+      pi:{n:"Dog's Day Pinheiros",p:[
+        ['assets/vt/pi-23.jpg','Ponto natural Pro Plan · vista lateral'],
+        ['assets/vt/pi-20.jpg','Pro Plan · preço como única comunicação'],
+        ['assets/vt/pi-13.jpg','Veterinary Diets · comunicação na embalagem'],
+        ['assets/vt/pi-05.jpg','Corredor estreito · avanço zero'],
+        ['assets/vt/pi-09.jpg','Gôndola de ração · densidade'],
+        ['assets/vt/pi-27.jpg','Display de piso · aperta a circulação'],
+        ['assets/vt/pi-35.jpg','Entrada · loja compacta'],
+        ['assets/vt/pi-00.jpg','Fachada · Dog\'s Day Pinheiros'],
+        ['assets/vt/pi-12.jpg','Prateleira · excesso de claims'],
+        ['assets/vt/pi-32.jpg','Display de piso concorrente']]},
+      rd:{n:'Pro Plan Science System · renders ilustrativos',h:'A solução em imagem',p:[
+        ['assets/render-amb-01.jpg','Território Pro Plan no corredor · vista geral'],
+        ['assets/render-01.jpg','Sistema completo · vista frontal'],
+        ['assets/render-02.jpg','Perspectiva · testeira, navegação e Veterinary Diets'],
+        ['assets/render-03.jpg','Perspectiva · lateral iluminada'],
+        ['assets/render-amb-04.jpg','Core frame · trilhos e prateleiras reguláveis'],
+        ['assets/render-amb-05.jpg','Skin · troca da testeira de categoria'],
+        ['assets/render-amb-03.jpg','Gaveta de serviço · cartuchos e etiquetas'],
+        ['assets/render-amb-06.jpg','Navegação · necessidade × fase de vida'],
+        ['assets/render-amb-07.jpg','Ponta de gôndola · testeira iluminada'],
+        ['assets/render-amb-02.jpg','Abastecimento e conferência do ativo']]}
+    };
+    document.querySelectorAll('[data-lb]').forEach(function(el){
+      el.onclick=function(){var a=el.getAttribute('data-lb').split(':');open(a[0],+a[1])};
+    });
     var TX={
-      vo:['Pro Plan aparece, mas some no meio da poluição visual.','Loja maior, mas sem área ociosa para display de piso.','Dezenas de sacos e nenhuma orientação.'],
+      vo:['Pro Plan aparece, mas some no meio da poluição visual.','Loja maior, mas sem área ociosa para display de piso.','Dezenas de sacos e nenhuma orientação de escolha.'],
       pi:['Mesmo padrão em uma loja ainda mais apertada.','A solução precisa zerar o avanço para o corredor.','Navegação e luz aplicadas à própria gôndola.']
     };
+    /* monta os mosaicos (7 primeiras fotos de cada loja) */
+    document.querySelectorAll('.mos').forEach(function(m){
+      var k=m.getAttribute('data-store');
+      VT[k].p.slice(0,7).forEach(function(ph,j){
+        var b=document.createElement('button'); b.className='vtile'; b.setAttribute('aria-label',ph[1]);
+        b.innerHTML='<img alt=""><span class="cp"></span><span class="zm"><svg viewBox="0 0 24 24"><use href="#i-search"/></svg></span>';
+        b.querySelector('img').src=ph[0]; b.querySelector('img').alt=ph[1]; b.querySelector('.cp').textContent=ph[1];
+        b.onclick=function(){open(k,j)};
+        m.appendChild(b);
+      });
+    });
     box.querySelectorAll('.chip').forEach(function(b){
       b.onclick=function(){
         var k=b.getAttribute('data-store');
         box.querySelectorAll('.chip').forEach(function(x){x.classList.toggle('on',x===b)});
-        imgs.forEach(function(im){im.classList.toggle('on',im.getAttribute('data-store')===k)});
+        document.querySelectorAll('.mos').forEach(function(m){m.classList.toggle('on',m.getAttribute('data-store')===k)});
         ['st1','st2','st3'].forEach(function(id,j){document.getElementById(id).textContent=TX[k][j]});
+        document.getElementById('vtn').textContent=VT[k].p.length+' fotos · '+VT[k].n.replace("Dog's Day ",'');
       };
     });
+    /* lightbox */
+    var cur={k:'vo',i:0};
+    function render(){
+      var L=VT[cur.k].p, ph=L[cur.i];
+      var im=document.getElementById('lbimg'); im.style.animation='none'; void im.offsetWidth; im.style.animation='';
+      im.src=ph[0]; im.alt=ph[1];
+      document.getElementById('lbcap').textContent=ph[1];
+      document.getElementById('lbst').textContent=VT[cur.k].n+(cur.k==='rd'?'':' · 31/08/2026');
+      document.getElementById('lbh').textContent=VT[cur.k].h||'Visita técnica · registro fotográfico';
+      document.getElementById('lbn').textContent=String(cur.i+1).padStart(2,'0')+' / '+String(L.length).padStart(2,'0');
+    }
+    function open(k,i){cur={k:k,i:i};render();lb.classList.add('open')}
+    function step(d){var L=VT[cur.k].p;cur.i=(cur.i+d+L.length)%L.length;render()}
+    document.getElementById('lbx').onclick=function(){lb.classList.remove('open')};
+    document.getElementById('lbp').onclick=function(){step(-1)};
+    document.getElementById('lbnx').onclick=function(){step(1)};
+    lb.addEventListener('click',function(e){if(e.target===lb||e.target.classList.contains('stage'))lb.classList.remove('open')});
+    window.__lbStep=step;
   })();
 
   /* fluxo de → para */
