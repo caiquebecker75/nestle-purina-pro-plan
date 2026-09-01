@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pro Plan Science System · Nestlé Purina × 75 LAB</title>
+<meta name="description" content="Território premium no ponto natural. Proposta estratégica da 75 LAB para Nestlé Purina Pro Plan.">
+<meta name="author" content="75 LAB">
+<meta name="theme-color" content="#0B0B0C">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Purina Pro Plan · preto, vermelho, branco, prata */
+  --black:#0B0B0C; --char:#17171A; --char-2:#232327;
+  --red:#E4002B;   --red-d:#B5001F; --red-l:#FF2E52;
+  --paper:#F7F7F8; --paper-d:#E9E9EC; --silver:#C9C9D0; --gray:#8A8A93; --ink:#111114; --ink-2:#4E4E56;
+  --disp:'Archivo',Impact,sans-serif;
+  --body:'Inter',system-ui,sans-serif;
+  --mono:'Space Mono',ui-monospace,monospace;
+  --pad:clamp(20px,4.4vw,76px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--black);color:var(--paper);font-family:var(--body);overflow:hidden;
+  -webkit-font-smoothing:antialiased;cursor:none}
+button{font-family:inherit}
+
+/* ══ cursor · anel + ponto Purina ══ */
+#cur,#dot{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;will-change:transform}
+#cur{width:36px;height:36px;margin:-18px 0 0 -18px;border-radius:50%;border:1.5px solid var(--red);
+  box-shadow:0 0 0 1px rgba(228,0,43,.15);
+  transition:width .22s cubic-bezier(.2,1.1,.3,1),height .22s cubic-bezier(.2,1.1,.3,1),margin .22s cubic-bezier(.2,1.1,.3,1),background .2s,opacity .2s,border-color .2s}
+#dot{width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--red);transition:opacity .2s,transform .16s}
+body.hot #cur{width:58px;height:58px;margin:-29px 0 0 -29px;border-width:2px;background:rgba(228,0,43,.12)}
+body.hot #dot{transform:scale(1.6)}
+#cur.off,#dot.off{opacity:0}
+@media (hover:none),(pointer:coarse){body{cursor:auto}#cur,#dot{display:none}}
+
+/* ══ transição de tela · cortina vermelha ══ */
+#wipe{position:fixed;inset:0;background:var(--red);z-index:500;pointer-events:none;transform:scaleX(0);transform-origin:left}
+#wipe.run{animation:curtain .78s cubic-bezier(.76,0,.24,1) forwards}
+@keyframes curtain{0%{transform:scaleX(0);transform-origin:left}46%{transform:scaleX(1);transform-origin:left}54%{transform:scaleX(1);transform-origin:right}100%{transform:scaleX(0);transform-origin:right}}
+
+/* ══ deck ══ */
+.deck{position:fixed;inset:0}
+.s{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--black);color:var(--paper);
+  padding:clamp(16px,2.6vw,34px) var(--pad) clamp(14px,2vw,26px);
+  opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,visibility .3s;
+  overflow:hidden auto;scrollbar-width:none}
+.s::-webkit-scrollbar{width:0}
+.s.on{opacity:1;visibility:visible;pointer-events:auto;z-index:2}
+.s.on .body{animation:enter .7s cubic-bezier(.16,.86,.26,1) .3s backwards}
+@keyframes enter{from{opacity:0;transform:translateY(22px) scale(.985)}to{opacity:1;transform:none}}
+.s.paper{background:var(--paper);color:var(--ink)}
+.s.red{background:var(--red);color:var(--paper)}
+.s.pic{padding:0;justify-content:flex-end}
+
+/* ══ régua superior ══ */
+.meta{flex:none;display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  font-family:var(--mono);font-size:clamp(8.4px,.72vw,11px);letter-spacing:.18em;text-transform:uppercase}
+.meta .l{opacity:.62}.meta .r{opacity:.62;text-align:right;white-space:nowrap}
+.hair{flex:none;height:1px;background:currentColor;opacity:.22;margin-top:clamp(6px,.8vw,11px)}
+.bar{flex:none;height:clamp(4px,.5vw,7px);background:var(--red);transform:scaleX(0);transform-origin:left}
+.s.red .bar{background:var(--black)}
+.s.on .bar{animation:wipe .74s cubic-bezier(.2,.82,.24,1) .36s forwards}
+@keyframes wipe{to{transform:scaleX(1)}}
+.s.pic .meta,.s.pic .hair,.s.pic .bar{display:none}
+
+/* ══ corpo ══ */
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;
+  padding:clamp(14px,3vw,52px) 0 clamp(10px,1.6vw,26px);gap:clamp(14px,2.4vw,40px)}
+.eyebrow{display:inline-flex;align-items:center;gap:.7em;font-family:var(--mono);font-size:clamp(8.6px,.76vw,12px);
+  letter-spacing:.2em;text-transform:uppercase;opacity:.7}
+.eyebrow::before{content:"";width:2.2em;height:2px;background:var(--red)}
+.s.red .eyebrow::before{background:var(--black)}
+
+/* ══ tipografia ══ */
+.mega{font-family:var(--disp);font-weight:900;font-stretch:88%;
+  font-size:clamp(34px,8.2vw,136px);line-height:.88;letter-spacing:-.03em;text-transform:uppercase}
+.mega.sm{font-size:clamp(28px,6vw,98px)}
+.mega.xs{font-size:clamp(24px,4.4vw,70px)}
+.mega em{font-style:normal;color:var(--red)}
+.s.red .mega em{color:var(--black)}
+.s.paper .mega em{color:var(--red)}
+.ln{display:block;overflow:hidden;padding:.19em 0 .1em;margin:-.19em 0 -.1em}
+.ln>i{display:block;font-style:normal;transform:translateY(128%)}
+.s.on .ln>i{animation:lift .86s cubic-bezier(.16,.86,.26,1) forwards}
+.s.on .ln:nth-child(1)>i{animation-delay:.42s}.s.on .ln:nth-child(2)>i{animation-delay:.51s}
+.s.on .ln:nth-child(3)>i{animation-delay:.60s}.s.on .ln:nth-child(4)>i{animation-delay:.69s}
+@keyframes lift{to{transform:translateY(0)}}
+.say{font-size:clamp(13px,1.45vw,24px);line-height:1.34;font-weight:400;max-width:28ch;opacity:.84}
+.say b{font-weight:600;opacity:1}
+.say.w{max-width:42ch}
+.disc{font-family:var(--mono);font-size:clamp(8px,.68vw,10.4px);letter-spacing:.14em;text-transform:uppercase;opacity:.45}
+
+/* ══ ícones ══ */
+.ic{width:1em;height:1em;display:inline-block;vertical-align:-.12em;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ico{width:clamp(30px,3vw,48px);height:clamp(30px,3vw,48px);display:grid;place-items:center;border-radius:12px;
+  background:var(--red);color:#fff;flex:none}
+.ico svg{width:58%;height:58%;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.s.red .ico{background:var(--black)}
+.ico.ghost{background:transparent;color:var(--red);box-shadow:inset 0 0 0 1.5px currentColor}
+.s.red .ico.ghost{color:var(--black)}
+
+/* ══ logos / lockup ══ */
+.lock{display:flex;align-items:center;gap:clamp(14px,1.8vw,30px)}
+.lock .div{width:1px;height:clamp(24px,2.6vw,44px);background:currentColor;opacity:.3}
+.pp{display:flex;align-items:center;gap:.55em;color:inherit}
+.pp .cb{width:clamp(30px,3.2vw,52px);height:clamp(30px,3.2vw,52px);flex:none}
+.pp .tx{display:flex;flex-direction:column;line-height:.92}
+.pp .tx small{font-family:var(--mono);font-size:clamp(7px,.62vw,10px);letter-spacing:.32em;opacity:.7}
+.pp .tx b{font-family:var(--disp);font-weight:900;font-stretch:84%;font-size:clamp(17px,1.9vw,31px);letter-spacing:-.01em;text-transform:uppercase}
+.pp.sm .cb{width:clamp(14px,1.3vw,20px);height:clamp(14px,1.3vw,20px)}
+.pp.sm .tx b{font-size:clamp(9px,.86vw,13px)}
+.pp.sm .tx small{display:none}
+
+/* ══ números gigantes ══ */
+.num{font-family:var(--disp);font-weight:900;font-stretch:84%;line-height:.8;letter-spacing:-.045em;
+  font-size:clamp(70px,13vw,220px);color:var(--red)}
+.s.red .num{color:var(--black)}
+.num u{text-decoration:none;font-size:.3em;letter-spacing:0;vertical-align:.7em;margin-left:.04em}
+.stat{display:flex;flex-direction:column;gap:clamp(6px,.8vw,12px)}
+.stat .lb{font-family:var(--disp);font-weight:800;font-stretch:96%;text-transform:uppercase;font-size:clamp(12px,1.25vw,21px);line-height:1.05;letter-spacing:-.01em;max-width:16ch}
+.stat .sb{font-size:clamp(10px,.9vw,14px);opacity:.6;max-width:22ch;line-height:1.35}
+
+/* ══ anéis ══ */
+.ring{position:relative;width:clamp(120px,15vw,230px);aspect-ratio:1}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .tr{fill:none;stroke:currentColor;opacity:.14;stroke-width:9}
+.ring .pr{fill:none;stroke:var(--red);stroke-width:9;stroke-linecap:round;stroke-dasharray:283;stroke-dashoffset:283;
+  transition:stroke-dashoffset 1.4s cubic-bezier(.2,.82,.24,1)}
+.s.on .ring .pr{stroke-dashoffset:var(--o)}
+.ring .v{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--disp);font-weight:900;font-stretch:84%;
+  font-size:clamp(28px,3.6vw,58px);letter-spacing:-.04em}
+.ring .v u{text-decoration:none;font-size:.5em;vertical-align:.5em}
+
+/* ══ linhas de dados ══ */
+.rows{display:flex;flex-direction:column;width:100%}
+.row{display:flex;justify-content:space-between;align-items:center;gap:20px;
+  padding:clamp(9px,1.1vw,18px) 0;border-top:1px solid currentColor}
+.row:first-child{border-top-width:2px}
+.row .k{display:flex;align-items:center;gap:.8em;font-family:var(--mono);font-size:clamp(9px,.76vw,12px);letter-spacing:.14em;text-transform:uppercase;opacity:.65}
+.row .k .ic{font-size:1.5em;color:var(--red);opacity:1}
+.row .v{font-family:var(--disp);font-weight:800;font-stretch:92%;font-size:clamp(13px,1.5vw,25px);letter-spacing:-.015em;text-align:right;line-height:1.05}
+.s.on .rows>*{animation:fadeup .6s cubic-bezier(.2,.85,.3,1) backwards}
+.s.on .rows>*:nth-child(1){animation-delay:.5s}.s.on .rows>*:nth-child(2){animation-delay:.58s}
+.s.on .rows>*:nth-child(3){animation-delay:.66s}.s.on .rows>*:nth-child(4){animation-delay:.74s}
+.s.on .rows>*:nth-child(5){animation-delay:.82s}.s.on .rows>*:nth-child(6){animation-delay:.9s}
+@keyframes fadeup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ══ grids ══ */
+.g{display:grid;gap:clamp(14px,2.2vw,44px)}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.sp{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(18px,3.4vw,70px);align-items:center}
+.sp-a{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(18px,3.4vw,70px);align-items:center}
+.stack{display:flex;flex-direction:column;gap:clamp(8px,1.1vw,18px)}
+.s.on .fu{animation:fadeup .68s cubic-bezier(.2,.85,.3,1) backwards}
+.s.on .fu:nth-child(1){animation-delay:.44s}.s.on .fu:nth-child(2){animation-delay:.52s}
+.s.on .fu:nth-child(3){animation-delay:.60s}.s.on .fu:nth-child(4){animation-delay:.68s}
+.s.on .fu:nth-child(5){animation-delay:.76s}.s.on .fu:nth-child(6){animation-delay:.84s}
+
+/* ══ bullets com ícone ══ */
+.bl{list-style:none;display:flex;flex-direction:column;gap:clamp(8px,1vw,16px)}
+.bl li{display:flex;align-items:flex-start;gap:.8em;font-size:clamp(11.5px,1.08vw,17.5px);line-height:1.35;opacity:.9}
+.bl li .ic{font-size:1.35em;color:var(--red);margin-top:.05em}
+.s.red .bl li .ic{color:var(--black)}
+.bl li b{font-weight:600}
+
+/* ══ chips ══ */
+.chips{display:flex;flex-wrap:wrap;gap:clamp(6px,.7vw,12px)}
+.chip{display:inline-flex;align-items:center;gap:.55em;font-family:var(--mono);font-size:clamp(8.6px,.76vw,12px);letter-spacing:.1em;text-transform:uppercase;
+  padding:clamp(6px,.62vw,10px) clamp(11px,1.05vw,18px);border-radius:999px;background:transparent;color:inherit;border:none;cursor:pointer;
+  box-shadow:inset 0 0 0 1px currentColor;opacity:.72;transition:.2s;white-space:nowrap}
+.chip .ic{font-size:1.3em;color:var(--red)}
+.chip:hover{opacity:1;transform:translateY(-2px)}
+.chip.on{opacity:1;background:var(--red);color:#fff;box-shadow:none}
+.chip.on .ic{color:#fff}
+.s.red .chip.on{background:var(--black)}
+
+/* ══ CTA ══ */
+.cta{display:inline-flex;align-items:center;gap:clamp(9px,1vw,16px);align-self:flex-start;
+  background:var(--red);color:#fff;border:none;cursor:pointer;text-decoration:none;
+  font-family:var(--disp);font-weight:800;font-stretch:96%;text-transform:uppercase;
+  font-size:clamp(11.5px,1.1vw,18.5px);letter-spacing:.01em;
+  padding:clamp(11px,1.15vw,20px) clamp(18px,1.9vw,34px);border-radius:999px;
+  transition:transform .22s cubic-bezier(.2,1.1,.3,1),box-shadow .22s,background .18s}
+.cta:hover{transform:translateY(-3px);box-shadow:0 16px 34px -14px rgba(228,0,43,.7);background:var(--red-l)}
+.cta:active{transform:translateY(0)}
+.cta .ar{width:1.05em;height:1.05em;flex:none}
+.cta .ar svg{width:100%;height:100%;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.cta.gh{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.cta.gh:hover{background:var(--paper);color:var(--black);box-shadow:inset 0 0 0 1.5px var(--paper)}
+.s.paper .cta.gh:hover{background:var(--ink);color:var(--paper);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.s.red .cta{background:var(--black);color:#fff}
+.s.red .cta:hover{background:var(--char-2);box-shadow:0 16px 34px -14px rgba(0,0,0,.6)}
+.s.red .cta.gh{background:transparent;color:var(--paper)}
+.s.red .cta.gh:hover{background:var(--paper);color:var(--red)}
+.ctas{display:flex;gap:clamp(9px,1.1vw,18px);flex-wrap:wrap;align-items:center}
+.s.on .cta{animation:fadeup .6s cubic-bezier(.2,.85,.3,1) .8s backwards}
+
+/* ══ rodapé ══ */
+.fo{flex:none;display:flex;justify-content:space-between;align-items:center;gap:16px;
+  border-top:1px solid currentColor;padding-top:clamp(8px,.95vw,14px)}
+.fo .bd{display:flex;align-items:center;gap:clamp(8px,.9vw,15px);opacity:.8}
+.fo .bd img{height:clamp(10px,1vw,14px);width:auto;display:block}
+.fo .bd .x{font-family:var(--mono);font-size:clamp(8px,.7vw,10.4px);opacity:.55}
+.nav{display:flex;align-items:center;gap:clamp(6px,.75vw,12px)}
+.nb{width:clamp(26px,2.3vw,34px);height:clamp(26px,2.3vw,34px);border-radius:50%;cursor:pointer;
+  background:transparent;color:currentColor;border:none;box-shadow:inset 0 0 0 1px currentColor;
+  display:grid;place-items:center;transition:.2s;opacity:.72}
+.nb svg{width:42%;height:42%;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.nb:hover{opacity:1;background:var(--red);color:#fff;box-shadow:none;transform:scale(1.1)}
+.s.red .nb:hover{background:var(--black)}
+.nb.mn{width:auto;border-radius:999px;padding:0 clamp(9px,.9vw,14px);gap:.5em;font-family:var(--mono);font-size:clamp(8px,.7vw,10.4px);letter-spacing:.14em}
+.nb.mn svg{width:11px;height:11px}
+.pg{font-family:var(--mono);font-size:clamp(9px,.78vw,12px);letter-spacing:.14em;min-width:5.4em;text-align:center;opacity:.72}
+
+/* ══ progresso ══ */
+.pro{position:fixed;top:0;left:0;height:3px;width:0;background:var(--red);z-index:200;transition:width .5s cubic-bezier(.2,.85,.3,1)}
+
+/* ══ foto em sangria ══ */
+.pic .img{position:absolute;inset:0;overflow:hidden;background:var(--black)}
+.pic .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);opacity:0;transition:opacity .6s ease}
+.pic .img img.on{opacity:1}
+.s.pic.on .img img.on{animation:kb 9s cubic-bezier(.2,.6,.3,1) forwards}
+@keyframes kb{to{transform:scale(1)}}
+.pic .scrim{position:absolute;inset:0;background:
+  linear-gradient(78deg,rgba(11,11,12,.96) 14%,rgba(11,11,12,.66) 48%,rgba(11,11,12,.1) 88%),
+  linear-gradient(0deg,rgba(11,11,12,.94) 0,rgba(11,11,12,.45) 18%,transparent 36%)}
+.pic .cap{position:relative;z-index:2;padding:var(--pad);width:100%;display:flex;flex-direction:column;gap:clamp(12px,1.5vw,24px)}
+.pic .fo{position:relative;z-index:2;margin:0 var(--pad) clamp(14px,2vw,26px)}
+
+/* ══ render slots ══ */
+.shot{position:relative;overflow:hidden;background:var(--char);border-radius:4px;min-height:0}
+.shot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.16,.86,.26,1)}
+.shot:hover img{transform:scale(1.04)}
+.shot .cp{position:absolute;top:0;left:0;padding:.85em 1em;z-index:2;font-family:var(--mono);font-size:clamp(7.4px,.66vw,10px);letter-spacing:.16em;text-transform:uppercase;color:rgba(247,247,248,.92);text-shadow:0 1px 10px rgba(0,0,0,.9)}
+.shot.empty img{display:none}
+.shot .ph{display:none;position:absolute;inset:0;place-items:center;text-align:center;padding:8%;
+  border:1.5px dashed rgba(201,201,208,.35);border-radius:4px;color:var(--silver);
+  background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(255,255,255,.025) 14px 28px)}
+.shot.empty .ph{display:grid}
+.s.paper .shot{background:var(--paper-d)}
+.s.paper .shot.empty .cp{color:var(--ink-2);text-shadow:none}
+.s.paper .shot .ph{color:var(--ink-2);border-color:rgba(17,17,20,.28);background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(0,0,0,.03) 14px 28px)}
+.ph .in{display:flex;flex-direction:column;align-items:center;gap:.6em}
+.ph .in svg{width:clamp(26px,2.8vw,44px);height:clamp(26px,2.8vw,44px);fill:none;stroke:var(--red);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ph .in b{font-family:var(--disp);font-weight:800;font-stretch:92%;text-transform:uppercase;font-size:clamp(10px,1vw,16px);letter-spacing:.02em}
+.ph .in span{font-family:var(--mono);font-size:clamp(7.4px,.66vw,10px);letter-spacing:.14em;text-transform:uppercase;opacity:.6}
+.s.on .shot{animation:rise .8s cubic-bezier(.16,.86,.26,1) .5s backwards}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.shot.note::after{content:"Imagens ilustrativas · renders finais em produção";position:absolute;left:0;right:0;bottom:0;padding:.75em .9em .6em;
+  font-family:var(--mono);font-size:clamp(6.6px,.6vw,9px);letter-spacing:.1em;text-transform:uppercase;color:rgba(247,247,248,.82);pointer-events:none;
+  background:linear-gradient(0deg,rgba(0,0,0,.8),rgba(0,0,0,.35) 62%,transparent)}
+.gal{display:grid;gap:clamp(7px,.9vw,15px);flex:1;min-height:0}
+.gal.a{grid-template-columns:1.4fr 1fr;grid-template-rows:1fr 1fr}
+.gal.a .shot:first-child{grid-row:span 2}
+.gal .shot{height:100%}
+@media(max-width:900px){.gal{flex:none}.gal.a{grid-template-columns:1fr;grid-template-rows:none}.gal.a .shot:first-child{grid-row:auto}.gal .shot{height:auto;aspect-ratio:16/10}}
+
+/* ══ xadrez Purina (capa) ══ */
+.check{display:grid;grid-template-columns:repeat(8,1fr);gap:0;aspect-ratio:1;width:100%;max-width:min(32vw,460px);justify-self:end}
+.check i{display:block;opacity:0;transform:scale(.6)}
+.check i.r{background:var(--red)}
+.check i.w{background:var(--paper)}
+.s.on .check i{animation:pop .5s cubic-bezier(.2,1.2,.3,1) forwards}
+@keyframes pop{to{opacity:1;transform:none}}
+.cb-hero{position:relative}
+.cb-hero .tag{position:absolute;left:0;right:0;bottom:-2.4em;font-family:var(--mono);font-size:clamp(7.4px,.66vw,10px);letter-spacing:.16em;text-transform:uppercase;opacity:.5;text-align:right}
+
+/* ══ fluxo (tese) ══ */
+.flowbox{display:flex;flex-direction:column;gap:clamp(12px,1.6vw,26px)}
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+.fs{display:flex;align-items:center;gap:0}
+.fs .cell{display:flex;flex-direction:column;gap:.45em;padding:clamp(10px,1.2vw,18px) clamp(12px,1.4vw,22px);
+  background:rgba(11,11,12,.16);border-radius:6px;min-width:clamp(96px,10vw,160px);transform:translateY(10px);opacity:0}
+.fs .cell .n{font-family:var(--mono);font-size:clamp(7.4px,.66vw,10px);letter-spacing:.2em;opacity:.7}
+.fs .cell .t{font-family:var(--disp);font-weight:800;font-stretch:92%;text-transform:uppercase;font-size:clamp(11px,1.15vw,18px);line-height:1.05;letter-spacing:-.01em}
+.fs .cell svg{width:clamp(18px,1.9vw,30px);height:clamp(18px,1.9vw,30px);fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.fs .arw{width:clamp(18px,2.2vw,36px);height:2px;background:currentColor;opacity:.5;position:relative;flex:none;transform:scaleX(0);transform-origin:left}
+.fs .arw::after{content:"";position:absolute;right:-1px;top:-4px;border:5px solid transparent;border-left-color:currentColor;border-right:0}
+.fs:last-child .arw{display:none}
+.flow.live .fs .cell{animation:fadeup .5s cubic-bezier(.2,.9,.3,1) forwards}
+.flow.live .fs .arw{animation:wipe .35s ease forwards}
+.flow.live .fs:nth-child(1) .cell{animation-delay:.05s}.flow.live .fs:nth-child(1) .arw{animation-delay:.3s}
+.flow.live .fs:nth-child(2) .cell{animation-delay:.4s}.flow.live .fs:nth-child(2) .arw{animation-delay:.65s}
+.flow.live .fs:nth-child(3) .cell{animation-delay:.75s}.flow.live .fs:nth-child(3) .arw{animation-delay:1s}
+.flow.live .fs:nth-child(4) .cell{animation-delay:1.1s}.flow.live .fs:nth-child(4) .arw{animation-delay:1.35s}
+.flow.live .fs:nth-child(5) .cell{animation-delay:1.45s}
+.fl-hoje .cell{background:rgba(11,11,12,.16);opacity:0}
+.fl-sys .cell{background:var(--black);color:var(--paper)}
+.fl-sys .fs:last-child .cell{background:var(--paper);color:var(--red)}
+.tog{display:inline-flex;background:rgba(0,0,0,.18);border-radius:999px;padding:4px;gap:4px;align-self:flex-start}
+.tog button{border:none;cursor:pointer;border-radius:999px;padding:.6em 1.2em;background:transparent;color:inherit;
+  font-family:var(--mono);font-size:clamp(8.6px,.76vw,12px);letter-spacing:.14em;text-transform:uppercase;transition:.2s;opacity:.7}
+.tog button.on{background:var(--black);color:#fff;opacity:1}
+.s.paper .tog{background:rgba(0,0,0,.06)}
+.s.paper .tog button.on{background:var(--red)}
+.fl-wrap{position:relative;min-height:clamp(90px,10vw,150px)}
+.fl-wrap .flow{position:absolute;inset:0;align-items:center;visibility:hidden}
+.fl-wrap .flow.live{visibility:visible}
+
+/* ══ pilares (tabs) ══ */
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,1vw,16px)}
+.tab{display:flex;flex-direction:column;gap:.7em;text-align:left;cursor:pointer;border:none;color:inherit;
+  padding:clamp(12px,1.3vw,22px);border-radius:8px;background:transparent;box-shadow:inset 0 0 0 1px rgba(17,17,20,.16);
+  transition:.25s;position:relative;overflow:hidden}
+.tab .n{font-family:var(--mono);font-size:clamp(7.4px,.66vw,10px);letter-spacing:.2em;opacity:.55}
+.tab .t{font-family:var(--disp);font-weight:800;font-stretch:92%;text-transform:uppercase;font-size:clamp(12px,1.25vw,20px);line-height:1.05;letter-spacing:-.01em}
+.tab .ico{transition:.25s}
+.tab:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 1.5px var(--red)}
+.tab.on{background:var(--ink);color:var(--paper);box-shadow:none}
+.tab.on .ico{background:var(--red)}
+.tab::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.2,.82,.24,1)}
+.tab.on::after{transform:scaleX(1)}
+.panes{position:relative;min-height:clamp(150px,20vw,300px)}
+.pane{position:absolute;inset:0;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(16px,3vw,60px);align-items:center;
+  opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .35s ease,transform .45s cubic-bezier(.16,.86,.26,1),visibility .35s}
+.pane.on{opacity:1;visibility:visible;transform:none}
+.pane h3{font-family:var(--disp);font-weight:900;font-stretch:88%;text-transform:uppercase;font-size:clamp(20px,2.8vw,46px);line-height:.95;letter-spacing:-.025em}
+.pane h3 em{font-style:normal;color:var(--red)}
+.pane .fig{width:100%;max-width:min(30vw,420px);justify-self:end}
+.pane .fig svg{width:100%;height:auto;display:block;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.pane .fig .r{stroke:var(--red)}
+.pane .fig .rf{fill:var(--red);stroke:none}
+.pane .fig .kf{fill:var(--ink);stroke:none}
+.pane .fig text{fill:currentColor;stroke:none;font-family:var(--mono);font-size:7px;letter-spacing:.1em;text-transform:uppercase}
+.pane .fig .big{font-family:var(--disp);font-weight:900;font-size:11px;letter-spacing:0}
+@media(max-width:900px){.tabs{grid-template-columns:repeat(2,1fr)}.panes{min-height:0}.pane{position:relative;grid-template-columns:1fr;display:none}.pane.on{display:grid}.pane .fig{justify-self:start;max-width:70%}}
+
+/* ══ configurações (3 lojas) ══ */
+.cfgs{display:flex;flex-direction:column;gap:clamp(8px,.9vw,14px)}
+.cfg{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:clamp(12px,1.4vw,22px);text-align:left;cursor:pointer;border:none;color:inherit;
+  padding:clamp(11px,1.15vw,18px) clamp(12px,1.4vw,22px);border-radius:8px;background:transparent;box-shadow:inset 0 0 0 1px rgba(17,17,20,.16);transition:.25s}
+.cfg .lv{font-family:var(--mono);font-size:clamp(7.4px,.66vw,10px);letter-spacing:.2em;opacity:.55}
+.cfg .t{font-family:var(--disp);font-weight:800;font-stretch:92%;text-transform:uppercase;font-size:clamp(13px,1.4vw,23px);line-height:1;letter-spacing:-.01em}
+.cfg .st{font-size:clamp(10px,.9vw,14px);opacity:.65;margin-top:.3em}
+.cfg .dots{display:flex;gap:4px}
+.cfg .dots i{width:clamp(8px,.8vw,12px);height:clamp(8px,.8vw,12px);border-radius:2px;background:currentColor;opacity:.16}
+.cfg .dots i.f{opacity:1;background:var(--red)}
+.cfg:hover{transform:translateX(4px);box-shadow:inset 0 0 0 1.5px var(--red)}
+.cfg.on{background:var(--ink);color:var(--paper);box-shadow:none}
+.cfg.on .dots i{background:var(--paper)}.cfg.on .dots i.f{background:var(--red)}
+.cfgpane{display:flex;flex-direction:column;gap:clamp(12px,1.4vw,22px)}
+.cfgpane .cp-t{font-family:var(--disp);font-weight:900;font-stretch:88%;text-transform:uppercase;font-size:clamp(18px,2.4vw,40px);line-height:.95;letter-spacing:-.025em}
+.cfgpane .cp-t em{font-style:normal;color:var(--red)}
+.meters{display:flex;flex-direction:column;gap:clamp(6px,.7vw,11px)}
+.mt{display:grid;grid-template-columns:clamp(96px,10vw,150px) 1fr auto;align-items:center;gap:1em;font-family:var(--mono);font-size:clamp(8px,.7vw,11px);letter-spacing:.14em;text-transform:uppercase}
+.mt .k{opacity:.6}
+.mt .b{height:6px;background:rgba(17,17,20,.1);border-radius:3px;overflow:hidden}
+.mt .b i{display:block;height:100%;width:0;background:var(--red);border-radius:3px;transition:width .7s cubic-bezier(.2,.82,.24,1)}
+.mt .p{opacity:.75;min-width:2.4em;text-align:right}
+.cfgpane .shot{aspect-ratio:16/9}
+
+/* ══ gauge ══ */
+.gauge{position:relative;width:clamp(180px,22vw,340px);justify-self:end}
+.gauge svg{width:100%;height:auto;display:block;overflow:visible}
+.gauge .tr{fill:none;stroke:currentColor;opacity:.14;stroke-width:12;stroke-linecap:round}
+.gauge .pr{fill:none;stroke:var(--red);stroke-width:12;stroke-linecap:round;stroke-dasharray:251;stroke-dashoffset:251;transition:stroke-dashoffset 1.6s cubic-bezier(.2,.82,.24,1) .6s}
+.s.on .gauge .pr{stroke-dashoffset:var(--o)}
+.gauge .v{position:absolute;left:0;right:0;bottom:8%;text-align:center}
+.gauge .v b{display:block;font-family:var(--disp);font-weight:900;font-stretch:84%;font-size:clamp(46px,6.4vw,104px);line-height:.85;letter-spacing:-.05em;color:var(--red)}
+.gauge .v>span{display:block;font-family:var(--mono);font-size:clamp(7.4px,.68vw,10.4px);letter-spacing:.2em;text-transform:uppercase;opacity:.6;margin-top:.8em}
+
+/* ══ passos (sequência animada) ══ */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2.2vw,44px)}
+.step{display:flex;flex-direction:column;gap:clamp(6px,.8vw,13px);transition:transform .45s cubic-bezier(.2,.9,.3,1)}
+.step .n{font-family:var(--mono);font-size:clamp(9px,.76vw,12px);letter-spacing:.18em;opacity:.5;transition:opacity .35s}
+.step .t{font-family:var(--disp);font-weight:800;font-stretch:92%;text-transform:uppercase;font-size:clamp(14px,1.7vw,29px);line-height:1.02;letter-spacing:-.02em;transition:color .35s}
+.step .d{font-size:clamp(10.6px,.94vw,15px);line-height:1.4;opacity:.7;max-width:22ch;transition:opacity .35s}
+.step .tl{position:relative;height:3px;background:currentColor;opacity:.18;overflow:hidden;border-radius:2px}
+.step .tl>i{position:absolute;inset:0;background:var(--black);transform:scaleX(0);transform-origin:left;transition:transform .62s cubic-bezier(.2,.82,.24,1)}
+.step.act .tl{opacity:1}.step.act .tl>i,.step.done .tl>i{transform:scaleX(1)}.step.done .tl{opacity:.5}
+.step .ico{opacity:.5;transition:opacity .35s,transform .45s cubic-bezier(.2,1.1,.3,1)}
+.step.act .ico{opacity:1;transform:scale(1.1)}
+.step.done .ico{opacity:.85}
+.step.act .n,.step.act .d{opacity:.95}
+.step.act .t{color:var(--black)}
+@media(max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}
+
+/* ══ índice ══ */
+.menu{position:fixed;inset:0;background:var(--black);z-index:300;display:none;padding:clamp(24px,4.6vw,72px) var(--pad);overflow:auto}
+.menu.open{display:flex;flex-direction:column;animation:mf .28s ease}
+@keyframes mf{from{opacity:0}to{opacity:1}}
+.mh{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:clamp(16px,2.4vw,38px)}
+.mh .t{font-family:var(--disp);font-weight:900;font-stretch:88%;text-transform:uppercase;font-size:clamp(16px,2vw,32px);letter-spacing:-.03em;color:var(--paper)}
+.ml{list-style:none;columns:2;column-gap:clamp(24px,4vw,80px)}
+@media(max-width:800px){.ml{columns:1}}
+.ml li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;cursor:pointer;padding:clamp(8px,.9vw,14px) 0;border-bottom:1px solid rgba(247,247,248,.14);break-inside:avoid;transition:.16s}
+.ml li:hover{padding-left:10px;border-color:var(--red)}
+.ml li:hover .tt{color:var(--red)}
+.ml .nn{font-family:var(--mono);font-size:clamp(8.6px,.72vw,11px);color:var(--red);letter-spacing:.14em}
+.ml .tt{font-family:var(--disp);font-weight:800;font-stretch:92%;text-transform:uppercase;font-size:clamp(12px,1.1vw,18px);color:rgba(247,247,248,.86);text-align:right;transition:.16s}
+
+/* ══ responsivo / impressão ══ */
+@media(max-width:900px){
+  .sp,.sp-a,.g2,.g3,.g4{grid-template-columns:1fr}
+  .g3.keep{grid-template-columns:repeat(3,1fr)}
+  .body{gap:20px}.say{max-width:34ch}
+  .check{max-width:60vw;justify-self:start}
+  .gauge{justify-self:start}
+  .pic .scrim{background:linear-gradient(0deg,rgba(11,11,12,.97) 30%,rgba(11,11,12,.55) 70%,rgba(11,11,12,.15) 100%)}
+}
+@media print{
+  body{overflow:visible;cursor:auto}#cur,#dot,.pro,.menu,#wipe{display:none}
+  .deck{position:static}
+  .s{position:relative;inset:auto;opacity:1!important;visibility:visible!important;page-break-after:always;height:100vh}
+  .s *{animation:none!important;transform:none!important}
+  .pane,.fl-wrap .flow{position:relative;opacity:1;visibility:visible}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001s!important;transition-duration:.001s!important}}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="pro" id="pro"></div>
+<div id="wipe"></div>
+<div id="cur"></div><div id="dot"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="ar" viewBox="0 0 24 24"><path d="M4 12h15"/><path d="m13.5 6 6 6-6 6"/></symbol>
+<symbol id="al" viewBox="0 0 24 24"><path d="M20 12H5"/><path d="m10.5 6-6 6 6 6"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-paw" viewBox="0 0 24 24"><circle cx="7" cy="8" r="2"/><circle cx="17" cy="8" r="2"/><circle cx="4.5" cy="13" r="1.8"/><circle cx="19.5" cy="13" r="1.8"/><path d="M12 11c-3.2 0-6 3-6 6 0 1.6 1.2 2.7 2.7 2.7 1.2 0 2-.6 3.3-.6s2.1.6 3.3.6c1.5 0 2.7-1.1 2.7-2.7 0-3-2.8-6-6-6z"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5z"/><path d="m3 13 9 5 9-5"/><path d="m3 17 9 5 9-5"/></symbol>
+<symbol id="i-sign" viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 6h11l3 2.5L16 11H5z"/><path d="M19 13H8l-3 2.5L8 18h11z"/></symbol>
+<symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8L3 12z"/><circle cx="7.5" cy="8.5" r="1.4"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.4 8.4 8 9.5 4.6-1.1 8-4.5 8-9.5V6l-8-3z"/><path d="m9 12 2.2 2.2L15.5 10"/></symbol>
+<symbol id="i-store" viewBox="0 0 24 24"><path d="M4 10 5.5 4h13L20 10"/><path d="M4 10a2.7 2.7 0 0 0 5.3 0 2.7 2.7 0 0 0 5.4 0 2.7 2.7 0 0 0 5.3 0"/><path d="M5.5 12.5V20h13v-7.5"/><path d="M10 20v-5h4v5"/></symbol>
+<symbol id="i-ruler" viewBox="0 0 24 24"><path d="m3 17 14-14 4 4L7 21z"/><path d="m8 8 2 2M11 5l2 2M14 11l2 2M17 8l2 2"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 9v5M12 17h.01"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></symbol>
+<symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 14h1M14 20h1M18 18h3v3"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.2"/></symbol>
+<symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="m21 16-5.5-5.5L7 19"/></symbol>
+<symbol id="i-cube" viewBox="0 0 24 24"><path d="M3 8v9l9 4 9-4V8"/><path d="m3 8 9-4 9 4-9 4-9-4z"/><path d="M12 12v9"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></symbol>
+<symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2.2h12.4a1.5 1.5 0 0 0 1.3-2.2L14 9V3"/><path d="M7.5 15h9"/></symbol>
+<symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h2.5l2.2 11a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L21 8H6.3"/><circle cx="10" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></symbol>
+<symbol id="i-price" viewBox="0 0 24 24"><path d="M12 4v16M15.5 8.2c-.6-1-1.9-1.6-3.5-1.6-2.1 0-3.5 1.1-3.5 2.6 0 3.4 7 1.6 7 5.2 0 1.6-1.5 2.7-3.5 2.7-1.7 0-3.1-.7-3.7-1.8"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4 4 0 0 1 12 7.6 4 4 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></symbol>
+<symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></symbol>
+<symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.8.6 1.1 1.3 1.1 2.2h5c0-.9.3-1.6 1.1-2.2A6 6 0 0 0 12 3z"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+<symbol id="i-pen" viewBox="0 0 24 24"><path d="m4 20 4-1L20 7l-3-3L5 16z"/><path d="m14 6 3 3"/></symbol>
+<symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0 5 5L9 22l-3-3L16.5 8.5a4 4 0 0 0-2-2z"/><path d="M14.5 6.5 19 2l3 3-4.5 4.5"/></symbol>
+<symbol id="i-rocket" viewBox="0 0 24 24"><path d="M12 3c3 2 5 6 5 10l-2 3H9l-2-3c0-4 2-8 5-10z"/><path d="M9 16 6 19M15 16l3 3M10 21h4"/><circle cx="12" cy="10" r="1.5"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></symbol>
+<symbol id="i-arrows" viewBox="0 0 24 24"><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+<symbol id="cbd" viewBox="0 0 40 40"><rect width="40" height="40" fill="#fff"/><g fill="#E4002B"><rect width="10" height="10"/><rect x="20" width="10" height="10"/><rect x="10" y="10" width="10" height="10"/><rect x="30" y="10" width="10" height="10"/><rect y="20" width="10" height="10"/><rect x="20" y="20" width="10" height="10"/><rect x="10" y="30" width="10" height="10"/><rect x="30" y="30" width="10" height="10"/></g></symbol>
+</defs></svg>
+
+<main class="deck" id="deck">
+
+<!-- 01 ─────────── CAPA ─────────── -->
+<section class="s on">
+  <div class="meta"><span class="l">Nestlé Purina × 75 LAB</span><span class="r">Proposta estratégica · Setembro 2026</span></div>
+  <div class="hair"></div><div class="bar"></div>
+  <div class="body">
+    <div class="sp">
+      <div class="stack" style="gap:clamp(16px,2.2vw,34px)">
+        <div class="lock fu">
+          <span class="pp"><svg class="cb"><use href="#cbd"/></svg><span class="tx"><small>PURINA</small><b>Pro Plan</b></span></span>
+          <span class="div"></span>
+          <img src="assets/75lab-wordmark-paper.png" alt="75 LAB" style="height:clamp(18px,2vw,32px)">
+        </div>
+        <h1 class="mega"><span class="ln"><i>Pro Plan</i></span><span class="ln"><i>Science</i></span><span class="ln"><i><em>System</em></i></span></h1>
+        <p class="say fu">Território premium no ponto natural. <b>A ciência que orienta a escolha.</b></p>
+        <div class="ctas">
+          <button class="cta" data-go="1">Ver a proposta <span class="ar"><svg><use href="#ar"/></svg></span></button>
+          <button class="cta gh" data-go="6">A solução em imagem</button>
+        </div>
+      </div>
+      <div class="cb-hero fu">
+        <div class="check" id="check"></div>
+        <div class="tag">Piloto Dog's Day · Pinheiros · Vila Olímpia · Granja Julieta</div>
+      </div>
+    </div>
+  </div>
+  <div class="fo">
+    <div class="bd"><img src="assets/75lab-wordmark-paper.png" alt="75 LAB"><span class="x">×</span><span class="pp sm"><svg class="cb"><use href="#cbd"/></svg><span class="tx"><b>Pro Plan</b></span></span></div>
+    <div class="nav"><button class="nb mn" data-menu aria-label="Índice"><svg><use href="#i-menu"/></svg>Índice</button><button class="nb pv" aria-label="Anterior"><svg><use href="#al"/></svg></button><span class="pg"><b class="cu">01</b> / <span class="to">10</span></span><button class="nb nx" aria-label="Próximo"><svg><use href="#ar"/></svg></button></div>
+  </div>
+</section>
+
+<!-- 02 ─────────── O MOMENTO ─────────── -->
+<section class="s paper">
+  <div class="meta"><span class="l">01 · O momento da marca</span><span class="r">Fonte: Nestlé Purina · abril 2026</span></div>
+  <div class="hair"></div><div class="bar"></div>
+  <div class="body">
+    <div class="stack" style="gap:clamp(6px,.8vw,12px)">
+      <span class="eyebrow">Começo</span>
+      <h2 class="mega sm"><span class="ln"><i>Pro Plan está em</i></span><span class="ln"><i>um <em>novo momento.</em></i></span></h2>
+    </div>
+    <div class="g g3 keep">
+      <div class="stat fu"><div class="num"><span data-n="54">0</span></div><div class="lb">itens no portfólio seco</div><div class="sb">Eram 41. Mais fases, portes e necessidades.</div></div>
+      <div class="stat fu"><div class="num">+<span data-n="30">0</span><u>%</u></div><div class="lb">de expansão de portfólio</div><div class="sb">Relançamento no Brasil com carne como primeiro ingrediente.</div></div>
+      <div class="stat fu"><div class="num"><span data-n="2">0</span><u>×</u></div><div class="lb">share em dois anos</div><div class="sb">Ambição declarada. Foco em pet shops e clínicas.</div></div>
+    </div>
+    <div class="ctas"><button class="cta" data-go="2">Mas o PDV ainda não mostra isso <span class="ar"><svg><use href="#ar"/></svg></span></button></div>
+  </div>
+  <div class="fo">
+    <div class="bd"><img src="assets/75lab-wordmark-black.png" alt="75 LAB"><span class="x">×</span><span class="pp sm"><svg class="cb"><use href="#cbd"/></svg><span class="tx"><b>Pro Plan</b></span></span></div>
+    <div class="nav"><button class="nb mn" data-menu><svg><use href="#i-menu"/></svg>Índice</button><button class="nb pv"><svg><use href="#al"/></svg></button><span class="pg"><b class="cu">02</b> / <span class="to">10</span></span><button class="nb nx"><svg><use href="#ar"/></svg></button></div>
+  </div>
+</section>
+
+<!-- 03 ─────────── O PARADOXO (VT) ─────────── -->
+<section class="s pic">
+  <div class="img">
+    <img src="assets/vt-loja-panoramica.jpg" alt="Dog's Day Vila Olímpia · loja densa" class="on" data-store="vo">
+    <img src="assets/vt-03.jpg" alt="Dog's Day Pinheiros · corredor estreito" data-store="pi">
+  </div>
+  <div class="scrim"></div>
+  <div class="cap">
+    <span class="eyebrow">02 · O paradoxo · visita técnica 31/08/2026</span>
+    <h2 class="mega sm"><span class="ln"><i>Marca super premium.</i></span><span class="ln"><i>Experiência de <em>commodity.</em></i></span></h2>
+    <div class="chips" id="stores">
+      <button class="chip on" data-store="vo"><svg class="ic"><use href="#i-store"/></svg>Vila Olímpia</button>
+      <button class="chip" data-store="pi"><svg class="ic"><use href="#i-store"/></svg>Pinheiros</button>
+    </div>
+    <div class="g g3 keep" style="max-width:min(72vw,900px)">
+      <div class="stat fu"><span class="ico ghost"><svg><use href="#i-eye"/></svg></span><div class="lb">Sem território</div><div class="sb" id="st1">Pro Plan aparece, mas some no meio da poluição visual.</div></div>
+      <div class="stat fu"><span class="ico ghost"><svg><use href="#i-arrows"/></svg></span><div class="lb">Corredor estreito</div><div class="sb" id="st2">Qualquer volume de piso aperta a circulação.</div></div>
+      <div class="stat fu"><span class="ico ghost"><svg><use href="#i-alert"/></svg></span><div class="lb">Escolha difícil</div><div class="sb" id="st3">Dezenas de sacos e nenhuma orientação.</div></div>
+    </div>
+  </div>
+  <div class="fo">
+    <div class="bd"><img src="assets/75lab-wordmark-paper.png" alt="75 LAB"><span class="x">×</span><span class="pp sm"><svg class="cb"><use href="#cbd"/></svg><span class="tx"><b>Pro Plan</b></span></span></div>
+    <div class="nav"><button class="nb mn" data-menu><svg><use href="#i-menu"/></svg>Índice</button><button class="nb pv"><svg><use href="#al"/></svg></button><span class="pg"><b class="cu">03</b> / <span class="to">10</span></span><button class="nb nx"><svg><use href="#ar"/></svg></button></div>
+  </div>
+</section>
+
+<!-- 04 ─────────── O SHOPPER ─────────── -->
+<section class="s">
+  <div class="meta"><span class="l">03 · O shopper</span><span class="r">Fonte: CBNA Pet 2025</span></div>
+  <div class="hair"></div><div class="bar"></div>
+  <div class="body">
+    <div class="sp-a">
+      <div class="stack" style="gap:clamp(12px,1.6vw,26px)">
+        <span class="eyebrow">Quem decide</span>
+        <h2 class="mega xs"><span class="ln"><i>O tutor quer</i></span><span class="ln"><i>a <em>certeza</em> de</i></span><span class="ln"><i>escolher certo.</i></span></h2>
+        <p class="say fu">Não basta "uma ração boa". A mensagem do PDV é: <b>"ajudamos você a encontrar a nutrição certa para o seu pet".</b></p>
+      </div>
+      <div class="g g3 keep" style="align-items:start">
+        <div class="stat fu"><div class="ring" style="--o:99"><svg viewBox="0 0 100 100"><circle class="tr" cx="50" cy="50" r="45"/><circle class="pr" cx="50" cy="50" r="45"/></svg><div class="v"><span data-n="65">0</span><u>%</u></div></div><div class="lb">acham difícil alimentar o pet corretamente</div></div>
+        <div class="stat fu"><div class="ring" style="--o:105"><svg viewBox="0 0 100 100"><circle class="tr" cx="50" cy="50" r="45"/><circle class="pr" cx="50" cy="50" r="45"/></svg><div class="v"><span data-n="63">0</span><u>%</u></div></div><div class="lb">ficam na marca, mas hesitam entre variantes</div></div>
+        <div class="stat fu"><div class="ring" style="--o:45"><svg viewBox="0 0 100 100"><circle class="tr" cx="50" cy="50" r="45"/><circle class="pr" cx="50" cy="50" r="45"/></svg><div class="v"><span data-n="84">0</span><u>%</u></div></div><div class="lb">pagariam mais pela dieta adequada</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="fo">
+    <div class="bd"><img src="assets/75lab-wordmark-paper.png" alt="75 LAB"><span class="x">×</span><span class="pp sm"><svg class="cb"><use href="#cbd"/></svg><span class="tx"><b>Pro Plan</b></span></span></div>
+    <div class="nav"><button class="nb mn" data-menu><svg><use href="#i-menu"/></svg>Índice</button><button class="nb pv"><svg><use href="#al"/></svg></button><span class="pg"><b class="cu">04</b> / <span class="to">10</span></span><button class="nb nx"><svg><use href="#ar"/></svg></button></div>
+  </div>
+</section>
+
+<!-- 05 ─────────── A TESE ─────────── -->
+<section class="s red">
+  <div class="meta"><span class="l">04 · A tese</span><span class="r">Da gôndola ao sistema de decisão</span></div>
+  <div class="hair"></div><div class="bar"></div>
+  <div class="body">
+    <div class="stack" style="gap:clamp(6px,.8vw,12px)">
+      <span class="eyebrow">Meio</span>
+      <h2 class="mega sm"><span class="ln"><i>Não é um display.</i></span><span class="ln"><i>É um <em>sistema</em></i></span><span class="ln"><i>de decisão.</i></span></h2>
+    </div>
+    <div class="flowbox fu">
+      <div class="tog" id="tog"><button class="on" data-fl="hoje">Hoje</button><button data-fl="sys">Com o sistema</button></div>
+      <div class="fl-wrap">
+        <div class="flow fl-hoje live" data-fl="hoje">
+          <div class="fs"><div class="cell"><svg><use href="#i-box"/></svg><span class="n">01</span><span class="t">Produto</span></div><span class="arw"></span></div>
+          <div class="fs"><div class="cell"><svg><use href="#i-cube"/></svg><span class="n">02</span><span class="t">Embalagem</span></div><span class="arw"></span></div>
+          <div class="fs"><div class="cell"><svg><use href="#i-price"/></svg><span class="n">03</span><span class="t">Preço</span></div><span class="arw"></span></div>
+        </div>
+        <div class="flow fl-sys" data-fl="sys">
+          <div class="fs"><div class="cell"><svg><use href="#i-paw"/></svg><span class="n">01</span><span class="t">Necessidade do pet</span></div><span class="arw"></span></div>
+          <div class="fs"><div class="cell"><svg><use href="#i-compass"/></svg><span class="n">02</span><span class="t">Orientação</span></div><span class="arw"></span></div>
+          <div class="fs"><div class="cell"><svg><use href="#i-target"/></svg><span class="n">03</span><span class="t">Produto certo</span></div><span class="arw"></span></div>
+          <div class="fs"><div class="cell"><svg><use href="#i-flask"/></svg><span class="n">04</span><span class="t">Ciência</span></div><span class="arw"></span></div>
+          <div class="fs"><div class="cell"><svg><use href="#i-cart"/></svg><span class="n">05</span><span class="t">Compra</span></div><span class="arw"></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="ctas"><button class="cta" data-go="5">Conhecer o sistema <span class="ar"><svg><use href="#ar"/></svg></span></button></div>
+  </div>
+  <div class="fo">
+    <div class="bd"><img src="assets/75lab-wordmark-paper.png" alt="75 LAB"><span class="x">×</span><span class="pp sm"><svg class="cb"><use href="#cbd"/></svg><span class="tx"><b>Pro Plan</b></span></span></div>
+    <div class="nav"><button class="nb mn" data-menu><svg><use href="#i-menu"/></svg>Índice</button><button class="nb pv"><svg><use href="#al"/></svg></button><span class="pg"><b class="cu">05</b> / <span class="to">10</span></span><button class="nb nx"><svg><use href="#ar"/></svg></button></div>
+  </div>
+</section>
+
+<!-- 06 ─────────── OS 4 PILARES ─────────── -->
+<section class="s paper">
+  <div class="meta"><span class="l">05 · Pro Plan Science System</span><span class="r">Clique em cada pilar</span></div>
+  <div class="hair"></div><div class="bar"></div>
+  <div class="body" style="gap:clamp(12px,1.8vw,30px)">
+    <div class="stack" style="gap:clamp(6px,.8vw,12px)">
+      <span class="eyebrow">A solução</span>
+      <h2 class="mega xs"><span class="ln"><i>Quatro pilares. <em>Um território.</em></i></span></h2>
+    </div>
+    <div class="tabs" id="tabs">
+      <button class="tab on" data-p="0"><span class="ico"><svg><use href="#i-layers"/></svg></span><span class="n">PILAR 01</span><span class="t">Core + Skin</span></button>
+      <button class="tab" data-p="1"><span class="ico"><svg><use href="#i-sign"/></svg></span><span class="n">PILAR 02</span><span class="t">Navegação em 3 níveis</span></button>
+      <button class="tab" data-p="2"><span class="ico"><svg><use href="#i-tag"/></svg></span><span class="n">PILAR 03</span><span class="t">SKU Cartridge</span></button>
+      <button class="tab" data-p="3"><span class="ico"><svg><use href="#i-shield"/></svg></span><span class="n">PILAR 04</span><span class="t">Auditoria de ativos</span></button>
+    </div>
+    <div class="panes" id="panes">
+      <div class="pane on">
+        <div class="stack">
+          <h3>A estrutura fica. <em>A comunicação muda.</em></h3>
+          <ul class="bl">
+            <li><svg class="ic"><use href="#i-check"/></svg><span><b>Core frame</b> durável, integrado à gôndola existente.</span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span><b>Skins</b> intercambiáveis: testeiras, réguas e campanhas.</span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span>Cresce na <b>vertical</b>, não no chão.</span></li>
+          </ul>
+        </div>
+        <div class="fig"><svg viewBox="0 0 200 130"><rect x="20" y="18" width="160" height="94" rx="3"/><rect x="20" y="18" width="160" height="16" class="rf"/><text x="28" y="29" fill="#fff" style="fill:#fff">SKIN · TESTEIRA</text><rect x="20" y="42" width="160" height="10" class="r"/><text x="28" y="49.5">SKIN · RÉGUA</text><rect x="30" y="58" width="30" height="46" class="kf"/><rect x="66" y="58" width="30" height="46" class="kf"/><rect x="102" y="58" width="30" height="46" class="kf"/><rect x="138" y="58" width="30" height="46" class="kf"/><text x="20" y="124">CORE FRAME · PERMANENTE</text><path d="M188 18v94" class="r"/><text x="180" y="12" class="big">↑</text></svg></div>
+      </div>
+      <div class="pane">
+        <div class="stack">
+          <h3>De longe, de perto e <em>diante da prateleira.</em></h3>
+          <ul class="bl">
+            <li><svg class="ic"><use href="#i-eye"/></svg><span><b>Nível 1</b> · de longe: PRO PLAN. O território.</span></li>
+            <li><svg class="ic"><use href="#i-compass"/></svg><span><b>Nível 2</b> · média distância: fase da vida e necessidade.</span></li>
+            <li><svg class="ic"><use href="#i-target"/></svg><span><b>Nível 3</b> · na prateleira: porte, benefício e variante.</span></li>
+          </ul>
+        </div>
+        <div class="fig"><svg viewBox="0 0 200 130"><rect x="10" y="20" width="180" height="26" class="rf"/><text x="18" y="37" class="big" style="fill:#fff">PRO PLAN</text><rect x="10" y="54" width="86" height="18" class="kf"/><rect x="104" y="54" width="86" height="18" class="kf"/><text x="16" y="66" style="fill:#fff">FILHOTE</text><text x="110" y="66" style="fill:#fff">SÊNIOR</text><rect x="10" y="80" width="40" height="30" class="r"/><rect x="56" y="80" width="40" height="30" class="r"/><rect x="104" y="80" width="40" height="30" class="r"/><rect x="150" y="80" width="40" height="30" class="r"/><text x="14" y="98">PORTE P</text><text x="60" y="98">PORTE M</text><text x="108" y="98">PORTE G</text><text x="154" y="98">BENEF.</text><text x="10" y="124">NÍVEL 1 → 2 → 3</text></svg></div>
+      </div>
+      <div class="pane">
+        <div class="stack">
+          <h3>A comunicação <em>acompanha o produto.</em></h3>
+          <ul class="bl">
+            <li><svg class="ic"><use href="#i-tag"/></svg><span>Módulo físico <b>preso ao SKU</b>: foto, linha, fase, porte e benefício.</span></li>
+            <li><svg class="ic"><use href="#i-arrows"/></svg><span>O produto muda de lugar? <b>O cartucho vai junto.</b></span></li>
+            <li><svg class="ic"><use href="#i-shield"/></svg><span>O erro de execução fica <b>operacionalmente difícil.</b></span></li>
+          </ul>
+        </div>
+        <div class="fig"><svg viewBox="0 0 200 130"><rect x="20" y="20" width="70" height="60" rx="3" class="kf"/><rect x="110" y="20" width="70" height="60" rx="3"/><rect x="20" y="86" width="70" height="20" rx="2" class="rf"/><text x="27" y="99" style="fill:#fff">SÊNIOR · P</text><rect x="110" y="86" width="70" height="20" rx="2"/><text x="117" y="99">SÊNIOR · P</text><path d="M92 50h16M104 46l4 4-4 4" class="r"/><path d="M92 96h16M104 92l4 4-4 4" class="r"/><text x="20" y="124">SKU + COMUNICAÇÃO MOVEM JUNTOS</text></svg></div>
+      </div>
+      <div class="pane">
+        <div class="stack">
+          <h3>Só entrega valor se <em>continuar certo.</em></h3>
+          <ul class="bl">
+            <li><svg class="ic"><use href="#i-qr"/></svg><span><b>QR único</b> por ativo, com histórico por loja.</span></li>
+            <li><svg class="ic"><use href="#i-camera"/></svg><span>Visitas <b>quinzenais</b> com foto padronizada.</span></li>
+            <li><svg class="ic"><use href="#i-chart"/></svg><span><b>Retail Health Score</b>: nota de saúde de cada ativo.</span></li>
+          </ul>
+        </div>
+        <div class="fig"><svg viewBox="0 0 200 130"><rect x="20" y="16" width="160" height="96" rx="4"/><rect x="30" y="26" width="28" height="28" class="kf"/><text x="66" y="36">ATIVO #0042 · PINHEIROS</text><text x="66" y="48">ÚLTIMA VISITA · 14 DIAS</text><rect x="30" y="66" width="140" height="8" rx="4"/><rect x="30" y="66" width="128" height="8" rx="4" class="rf"/><text x="30" y="90">HEALTH SCORE</text><text x="120" y="92" class="big">92 / 100</text><text x="30" y="104">SKU OK · FRENTES OK · LUZ OK</text></svg></div>
+      </div>
+    </div>
+  </div>
+  <div class="fo">
+    <div class="bd"><img src="assets/75lab-wordmark-black.png" alt="75 LAB"><span class="x">×</span><span class="pp sm"><svg class="cb"><use href="#cbd"/></svg><span class="tx"><b>Pro Plan</b></span></span></div>
+    <div class="nav"><button class="nb mn" data-menu><svg><use href="#i-menu"/></svg>Índice</button><button class="nb pv"><svg><use href="#al"/></svg></button><span class="pg"><b class="cu">06</b> / <span class="to">10</span></span><button class="nb nx"><svg><use href="#ar"/></svg></button></div>
+  </div>
+</section>
+
+<!-- 07 ─────────── RENDERS ─────────── -->
+<section class="s">
+  <div class="meta"><span class="l">06 · A solução em imagem</span><span class="r">Renders 3D · time de design 75 LAB</span></div>
+  <div class="hair"></div><div class="bar"></div>
+  <div class="body" style="gap:clamp(10px,1.4vw,24px)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap">
+      <h2 class="mega xs"><span class="ln"><i>O território <em>em imagem.</em></i></span></h2>
+      <p class="say fu" style="max-width:34ch;font-size:clamp(11px,1.05vw,16px)">Presença vertical, navegação clara e <b>zero avanço no corredor.</b></p>
+    </div>
+    <div class="gal a">
+      <div class="shot note"><span class="cp">Render 01 · Vista do corredor</span><img src="assets/render-01.jpg" alt="Render · vista do corredor" onerror="this.parentNode.classList.add('empty')"><div class="ph"><div class="in"><svg viewBox="0 0 24 24"><use href="#i-image"/></svg><b>Render 01</b><span>Vista do corredor · Core</span></div></div></div>
+      <div class="shot"><span class="cp">Render 02 · Navegação de prateleira</span><img src="assets/render-02.jpg" alt="Render · navegação" onerror="this.parentNode.classList.add('empty')"><div class="ph"><div class="in"><svg viewBox="0 0 24 24"><use href="#i-sign"/></svg><b>Render 02</b><span>Navegação em 3 níveis</span></div></div></div>
+      <div class="shot"><span class="cp">Render 03 · SKU Cartridge em detalhe</span><img src="assets/render-03.jpg" alt="Render · SKU Cartridge" onerror="this.parentNode.classList.add('empty')"><div class="ph"><div class="in"><svg viewBox="0 0 24 24"><use href="#i-tag"/></svg><b>Render 03</b><span>SKU Cartridge · detalhe</span></div></div></div>
+    </div>
+  </div>
+  <div class="fo">
+    <div class="bd"><img src="assets/75lab-wordmark-paper.png" alt="75 LAB"><span class="x">×</span><span class="pp sm"><svg class="cb"><use href="#cbd"/></svg><span class="tx"><b>Pro Plan</b></span></span></div>
+    <div class="nav"><button class="nb mn" data-menu><svg><use href="#i-menu"/></svg>Índice</button><button class="nb pv"><svg><use href="#al"/></svg></button><span class="pg"><b class="cu">07</b> / <span class="to">10</span></span><button class="nb nx"><svg><use href="#ar"/></svg></button></div>
+  </div>
+</section>
+
+<!-- 08 ─────────── 3 LOJAS, 1 SISTEMA ─────────── -->
+<section class="s paper">
+  <div class="meta"><span class="l">07 · Escala</span><span class="r">Clique em cada configuração</span></div>
+  <div class="hair"></div><div class="bar"></div>
+  <div class="body" style="gap:clamp(12px,1.8vw,30px)">
+    <div class="stack" style="gap:clamp(6px,.8vw,12px)">
+      <span class="eyebrow">Piloto</span>
+      <h2 class="mega xs"><span class="ln"><i>Três lojas. <em>Um sistema.</em></i></span></h2>
+    </div>
+    <div class="sp-a" style="align-items:start">
+      <div class="cfgs" id="cfgs">
+        <button class="cfg on" data-c="0"><span class="ico"><svg><use href="#i-ruler"/></svg></span><span><span class="lv">COMPACT · PINHEIROS</span><span class="t" style="display:block">Eficiência máxima</span><span class="st" style="display:block">Retrofit da gôndola. Avanço quase zero.</span></span><span class="dots"><i class="f"></i><i></i><i></i></span></button>
+        <button class="cfg" data-c="1"><span class="ico"><svg><use href="#i-layers"/></svg></span><span><span class="lv">CORE · VILA OLÍMPIA</span><span class="t" style="display:block">Versão de escala</span><span class="st" style="display:block">Frame completo, navegação e QR.</span></span><span class="dots"><i class="f"></i><i class="f"></i><i></i></span></button>
+        <button class="cfg" data-c="2"><span class="ico"><svg><use href="#i-rocket"/></svg></span><span><span class="lv">FLAGSHIP · GRANJA JULIETA</span><span class="t" style="display:block">Expressão máxima</span><span class="st" style="display:block">Ambientação ampliada e camada digital.</span></span><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span></button>
+      </div>
+      <div class="cfgpane" id="cfgpane">
+        <div class="cp-t" id="cpt">Mesma linguagem, <em>menor footprint.</em></div>
+        <div class="meters">
+          <div class="mt"><span class="k">Módulos</span><span class="b"><i data-m="0"></i></span><span class="p" data-mp="0">0%</span></div>
+          <div class="mt"><span class="k">Intervenção</span><span class="b"><i data-m="1"></i></span><span class="p" data-mp="1">0%</span></div>
+          <div class="mt"><span class="k">Camada digital</span><span class="b"><i data-m="2"></i></span><span class="p" data-mp="2">0%</span></div>
+        </div>
+        <div class="shot" id="cfgshot"><span class="cp" id="cfgcp">Render · Compact</span><img id="cfgimg" src="assets/render-compact.jpg" alt="Render da configuração"><div class="ph"><div class="in"><svg viewBox="0 0 24 24"><use href="#i-image"/></svg><b id="cfgph">Render · Compact</b><span>espaço reservado</span></div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="fo">
+    <div class="bd"><img src="assets/75lab-wordmark-black.png" alt="75 LAB"><span class="x">×</span><span class="pp sm"><svg class="cb"><use href="#cbd"/></svg><span class="tx"><b>Pro Plan</b></span></span></div>
+    <div class="nav"><button class="nb mn" data-menu><svg><use href="#i-menu"/></svg>Índice</button><button class="nb pv"><svg><use href="#al"/></svg></button><span class="pg"><b class="cu">08</b> / <span class="to">10</span></span><button class="nb nx"><svg><use href="#ar"/></svg></button></div>
+  </div>
+</section>
+
+<!-- 09 ─────────── COMO MEDIMOS ─────────── -->
+<section class="s">
+  <div class="meta"><span class="l">08 · Como medimos</span><span class="r">Piloto medido pré × pós e vs. lojas controle</span></div>
+  <div class="hair"></div><div class="bar"></div>
+  <div class="body">
+    <div class="sp">
+      <div class="stack" style="gap:clamp(12px,1.6vw,26px)">
+        <span class="eyebrow">Evidência</span>
+        <h2 class="mega xs"><span class="ln"><i>De "quantos</i></span><span class="ln"><i>instalamos" para</i></span><span class="ln"><i>"quantos <em>funcionam".</em></i></span></h2>
+        <div class="rows">
+          <div class="row"><span class="k"><svg class="ic"><use href="#i-tag"/></svg>Execução</span><span class="v">% de SKU no lugar certo</span></div>
+          <div class="row"><span class="k"><svg class="ic"><use href="#i-box"/></svg>Disponibilidade</span><span class="v">Ruptura por SKU</span></div>
+          <div class="row"><span class="k"><svg class="ic"><use href="#i-eye"/></svg>Visibilidade</span><span class="v">Distância de reconhecimento</span></div>
+          <div class="row"><span class="k"><svg class="ic"><use href="#i-clock"/></svg>Shopper</span><span class="v">Tempo para encontrar</span></div>
+          <div class="row"><span class="k"><svg class="ic"><use href="#i-chart"/></svg>Negócio</span><span class="v">Sell-out por loja</span></div>
+        </div>
+      </div>
+      <div class="stack" style="align-items:flex-end;gap:clamp(10px,1.2vw,20px)">
+        <div class="gauge fu" style="--o:20">
+          <svg viewBox="0 0 200 120"><path class="tr" d="M20 110A80 80 0 0 1 180 110"/><path class="pr" d="M20 110A80 80 0 0 1 180 110"/></svg>
+          <div class="v"><b><span data-n="92">0</span></b><span>Retail Health Score</span></div>
+        </div>
+        <span class="disc">exemplo ilustrativo · nota por ativo, a cada 15 dias</span>
+      </div>
+    </div>
+  </div>
+  <div class="fo">
+    <div class="bd"><img src="assets/75lab-wordmark-paper.png" alt="75 LAB"><span class="x">×</span><span class="pp sm"><svg class="cb"><use href="#cbd"/></svg><span class="tx"><b>Pro Plan</b></span></span></div>
+    <div class="nav"><button class="nb mn" data-menu><svg><use href="#i-menu"/></svg>Índice</button><button class="nb pv"><svg><use href="#al"/></svg></button><span class="pg"><b class="cu">09</b> / <span class="to">10</span></span><button class="nb nx"><svg><use href="#ar"/></svg></button></div>
+  </div>
+</section>
+
+<!-- 10 ─────────── PRÓXIMO PASSO ─────────── -->
+<section class="s red">
+  <div class="meta"><span class="l">09 · Próximo passo</span><span class="r">Fim</span></div>
+  <div class="hair"></div><div class="bar"></div>
+  <div class="body">
+    <div class="stack" style="gap:clamp(6px,.8vw,12px)">
+      <span class="eyebrow">Fim</span>
+      <h2 class="mega sm"><span class="ln"><i>Vamos começar</i></span><span class="ln"><i>pelo <em>diagnóstico.</em></i></span></h2>
+    </div>
+    <div class="steps" data-seq>
+      <div class="step"><span class="ico"><svg><use href="#i-ruler"/></svg></span><span class="n">FASE 01</span><span class="t">Diagnóstico técnico</span><span class="tl"><i></i></span><span class="d">Medição, planograma e baseline fotográfico.</span></div>
+      <div class="step"><span class="ico"><svg><use href="#i-pen"/></svg></span><span class="n">FASE 02</span><span class="t">Arquitetura e design</span><span class="tl"><i></i></span><span class="d">Regras do sistema, módulos, skins e navegação.</span></div>
+      <div class="step"><span class="ico"><svg><use href="#i-wrench"/></svg></span><span class="n">FASE 03</span><span class="t">Protótipo</span><span class="tl"><i></i></span><span class="d">Resistência, montagem e teste de corredor.</span></div>
+      <div class="step"><span class="ico"><svg><use href="#i-rocket"/></svg></span><span class="n">FASE 04</span><span class="t">Piloto em 3 lojas</span><span class="tl"><i></i></span><span class="d">Compact, Core e Flagship. Auditoria quinzenal.</span></div>
+    </div>
+    <div class="stack fu" style="gap:clamp(8px,1vw,14px)">
+      <span class="disc" style="opacity:.75">O que precisamos de vocês</span>
+      <div class="chips">
+        <span class="chip"><svg class="ic" style="color:currentColor"><use href="#i-doc"/></svg>Planograma por loja</span>
+        <span class="chip"><svg class="ic" style="color:currentColor"><use href="#i-box"/></svg>Master de SKUs 2026</span>
+        <span class="chip"><svg class="ic" style="color:currentColor"><use href="#i-ruler"/></svg>Medidas das gôndolas</span>
+        <span class="chip"><svg class="ic" style="color:currentColor"><use href="#i-check"/></svg>Brand guide e claims</span>
+      </div>
+    </div>
+    <div class="ctas">
+      <a class="cta" href="mailto:marketing@75lab.com.br?subject=Pro%20Plan%20Science%20System%20%C2%B7%20diagn%C3%B3stico%20t%C3%A9cnico">Agendar o diagnóstico <span class="ar"><svg><use href="#i-mail"/></svg></span></a>
+      <button class="cta gh" data-go="0">Voltar ao início</button>
+    </div>
+  </div>
+  <div class="fo">
+    <div class="bd"><img src="assets/75lab-wordmark-paper.png" alt="75 LAB"><span class="x">×</span><span class="pp sm"><svg class="cb"><use href="#cbd"/></svg><span class="tx"><b>Pro Plan</b></span></span></div>
+    <div class="nav"><button class="nb mn" data-menu><svg><use href="#i-menu"/></svg>Índice</button><button class="nb pv"><svg><use href="#al"/></svg></button><span class="pg"><b class="cu">10</b> / <span class="to">10</span></span><button class="nb nx"><svg><use href="#ar"/></svg></button></div>
+  </div>
+</section>
+
+</main>
+
+<!-- índice -->
+<div class="menu" id="menu">
+  <div class="mh"><span class="t">Índice</span><button class="nb" id="mx" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
+  <ul class="ml" id="mlist"></ul>
+</div>
+
+<script>
+(function(){
+  var T=["Capa · Pro Plan Science System","O momento da marca","O paradoxo · visita técnica","O shopper","A tese","Os quatro pilares","A solução em imagem","Três lojas, um sistema","Como medimos","Próximo passo"];
+  var sl=[].slice.call(document.querySelectorAll('.s')), i=0, n=sl.length, busy=false;
+  var menu=document.getElementById('menu'), ml=document.getElementById('mlist'), pro=document.getElementById('pro'), wipe=document.getElementById('wipe');
+
+  T.forEach(function(t,k){
+    var li=document.createElement('li');
+    li.innerHTML='<span class="nn">'+String(k+1).padStart(2,'0')+'</span><span class="tt"></span>';
+    li.querySelector('.tt').textContent=t;
+    li.onclick=function(){menu.classList.remove('open');go(k)};
+    ml.appendChild(li);
+  });
+
+  /* xadrez da capa */
+  (function(){
+    var c=document.getElementById('check'); if(!c)return;
+    for(var r=0;r<8;r++)for(var q=0;q<8;q++){
+      var d=document.createElement('i'); d.className=((r+q)%2?'w':'r');
+      d.style.animationDelay=(.4+(r+q)*.06)+'s'; c.appendChild(d);
+    }
+  })();
+
+  function nums(s){
+    [].forEach.call(s.querySelectorAll('[data-n]'),function(el){
+      var tg=parseFloat(el.getAttribute('data-n')),d=1200;
+      el.textContent='0';
+      if(el._tm){clearInterval(el._tm)}
+      setTimeout(function(){
+        var t0=Date.now();
+        el._tm=setInterval(function(){
+          var p=Math.min((Date.now()-t0)/d,1), e=1-Math.pow(1-p,4);
+          el.textContent=Math.round(tg*e);
+          if(p>=1){clearInterval(el._tm);el._tm=null}
+        },16);
+      },380);
+    });
+  }
+  function replay(s){
+    s.querySelectorAll('.bar,.ln>i,.fu,.rows>*,.cta,.shot,.body,.check i').forEach(function(e){
+      var a=e.style.animation; e.style.animation='none'; void e.offsetWidth; e.style.animation=a||'';
+    });
+  }
+  function show(k){
+    sl[i].classList.remove('on'); i=k;
+    sl[i].classList.add('on'); sl[i].scrollTop=0;
+    replay(sl[i]); nums(sl[i]); runSeq(sl[i]); flowReset(sl[i]);
+    document.querySelectorAll('.cu').forEach(function(e){e.textContent=String(i+1).padStart(2,'0')});
+    pro.style.width=(i/(n-1)*100)+'%';
+  }
+  function go(k){
+    if(k<0||k>=n||k===i||busy)return;
+    busy=true;
+    wipe.classList.remove('run'); void wipe.offsetWidth; wipe.classList.add('run');
+    setTimeout(function(){show(k)},360);
+    setTimeout(function(){busy=false},520);
+    setTimeout(function(){wipe.classList.remove('run')},800);
+  }
+  document.querySelectorAll('.nx').forEach(function(b){b.onclick=function(){go(i+1)}});
+  document.querySelectorAll('.pv').forEach(function(b){b.onclick=function(){go(i-1)}});
+  document.querySelectorAll('.to').forEach(function(e){e.textContent=String(n).padStart(2,'0')});
+  document.querySelectorAll('[data-go]').forEach(function(e){e.onclick=function(){go(+e.getAttribute('data-go'))}});
+  document.querySelectorAll('[data-menu]').forEach(function(e){e.onclick=function(){menu.classList.add('open')}});
+  document.getElementById('mx').onclick=function(){menu.classList.remove('open')};
+
+  document.addEventListener('keydown',function(e){
+    if(menu.classList.contains('open')){ if(e.key==='Escape')menu.classList.remove('open'); return; }
+    if(['ArrowRight','PageDown',' '].indexOf(e.key)>-1){e.preventDefault();go(i+1)}
+    if(['ArrowLeft','PageUp'].indexOf(e.key)>-1){e.preventDefault();go(i-1)}
+    if(e.key==='Home'){e.preventDefault();go(0)}
+    if(e.key==='End'){e.preventDefault();go(n-1)}
+    if(e.key==='m'||e.key==='M')menu.classList.add('open');
+  });
+  var x0=null,y0=null;
+  document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(x0===null)return;
+    var dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)){dx<0?go(i+1):go(i-1)} x0=null;y0=null;
+  },{passive:true});
+
+  /* cursor */
+  if(!window.matchMedia('(pointer:coarse)').matches){
+    var c=document.getElementById('cur'), d=document.getElementById('dot');
+    var mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my,dx2=mx,dy2=my,on=false;
+    var H='button,a,.chip,.row,.step,.ml li,[data-go],.tab,.cfg,.shot';
+    c.classList.add('off');d.classList.add('off');
+    document.addEventListener('mousemove',function(e){
+      mx=e.clientX;my=e.clientY;
+      if(!on){on=true;c.classList.remove('off');d.classList.remove('off')}
+      var t=e.target;
+      document.body.classList.toggle('hot',!!(t&&t.closest&&t.closest(H)));
+    },{passive:true});
+    document.addEventListener('mouseleave',function(){on=false;c.classList.add('off');d.classList.add('off')});
+    (function lp(){
+      cx+=(mx-cx)*.18; cy+=(my-cy)*.18; dx2+=(mx-dx2)*.45; dy2+=(my-dy2)*.45;
+      c.style.transform='translate3d('+cx+'px,'+cy+'px,0)';
+      d.style.transform='translate3d('+dx2+'px,'+dy2+'px,0)';
+      requestAnimationFrame(lp);
+    })();
+  }
+
+  /* passos animados (fecho) */
+  var seqT=null;
+  function runSeq(s){
+    if(seqT){clearTimeout(seqT);seqT=null}
+    var box=s.querySelector('[data-seq]'); if(!box)return;
+    var st=[].slice.call(box.querySelectorAll('.step'));
+    st.forEach(function(e){e.classList.remove('act','done')});
+    var k=0;
+    function tick(){
+      st.forEach(function(e,j){e.classList.toggle('act',j===k);e.classList.toggle('done',j<k)});
+      var last=(k===st.length-1); k=last?0:k+1;
+      seqT=setTimeout(tick,last?2600:1500);
+    }
+    seqT=setTimeout(tick,700);
+  }
+
+  /* lojas (VT) */
+  (function(){
+    var box=document.getElementById('stores'); if(!box)return;
+    var imgs=document.querySelectorAll('.pic .img img');
+    var TX={
+      vo:['Pro Plan aparece, mas some no meio da poluição visual.','Loja maior, mas sem área ociosa para display de piso.','Dezenas de sacos e nenhuma orientação.'],
+      pi:['Mesmo padrão em uma loja ainda mais apertada.','A solução precisa zerar o avanço para o corredor.','Navegação e luz aplicadas à própria gôndola.']
+    };
+    box.querySelectorAll('.chip').forEach(function(b){
+      b.onclick=function(){
+        var k=b.getAttribute('data-store');
+        box.querySelectorAll('.chip').forEach(function(x){x.classList.toggle('on',x===b)});
+        imgs.forEach(function(im){im.classList.toggle('on',im.getAttribute('data-store')===k)});
+        ['st1','st2','st3'].forEach(function(id,j){document.getElementById(id).textContent=TX[k][j]});
+      };
+    });
+  })();
+
+  /* fluxo de → para */
+  function flowReset(s){
+    var w=s.querySelector('.fl-wrap'); if(!w)return;
+    w.querySelectorAll('.flow').forEach(function(f){
+      var live=f.classList.contains('live'); f.classList.remove('live'); void f.offsetWidth; if(live)f.classList.add('live');
+    });
+  }
+  (function(){
+    var tog=document.getElementById('tog'); if(!tog)return;
+    tog.querySelectorAll('button').forEach(function(b){
+      b.onclick=function(){
+        var k=b.getAttribute('data-fl');
+        tog.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});
+        document.querySelectorAll('.fl-wrap .flow').forEach(function(f){
+          f.classList.remove('live'); void f.offsetWidth;
+          if(f.getAttribute('data-fl')===k)f.classList.add('live');
+        });
+      };
+    });
+  })();
+
+  /* pilares */
+  (function(){
+    var tabs=document.getElementById('tabs'); if(!tabs)return;
+    var panes=document.querySelectorAll('#panes .pane');
+    tabs.querySelectorAll('.tab').forEach(function(b){
+      b.onclick=function(){
+        var k=+b.getAttribute('data-p');
+        tabs.querySelectorAll('.tab').forEach(function(x){x.classList.toggle('on',x===b)});
+        panes.forEach(function(p,j){p.classList.toggle('on',j===k)});
+      };
+    });
+  })();
+
+  /* configurações */
+  (function(){
+    var box=document.getElementById('cfgs'); if(!box)return;
+    var C=[
+      {t:'Mesma linguagem, <em>menor footprint.</em>',m:[35,25,20],n:'Compact',f:'compact'},
+      {t:'O sistema completo, <em>pronto para escalar.</em>',m:[70,60,65],n:'Core',f:'core'},
+      {t:'A expressão máxima <em>do conceito.</em>',m:[100,90,100],n:'Flagship',f:'flagship'}
+    ];
+    var img=document.getElementById('cfgimg'), shot=document.getElementById('cfgshot');
+    img.onerror=function(){shot.classList.add('empty')};
+    img.onload=function(){shot.classList.remove('empty')};
+    function set(k){
+      var c=C[k];
+      box.querySelectorAll('.cfg').forEach(function(x,j){x.classList.toggle('on',j===k)});
+      document.getElementById('cpt').innerHTML=c.t;
+      c.m.forEach(function(v,j){
+        document.querySelector('[data-m="'+j+'"]').style.width=v+'%';
+        document.querySelector('[data-mp="'+j+'"]').textContent=v+'%';
+      });
+      document.getElementById('cfgcp').textContent='Render · '+c.n;
+      document.getElementById('cfgph').textContent='Render · '+c.n;
+      shot.classList.add('empty'); img.src='assets/render-'+c.f+'.jpg';
+    }
+    box.querySelectorAll('.cfg').forEach(function(b){b.onclick=function(){set(+b.getAttribute('data-c'))}});
+    set(0);
+  })();
+
+  pro.style.width='0%';
+  nums(sl[0]); runSeq(sl[0]);
+})();
+</script>
+</body>
+</html>
