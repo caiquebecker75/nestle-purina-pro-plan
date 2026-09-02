@@ -12,7 +12,8 @@ ponto natural de Pro Plan no piloto Dog's Day (Pinheiros, Vila Olímpia, Granja 
 - `assets/vt/` · 20 fotos da visita técnica (31/08/2026), 10 por loja, usadas no mosaico da tela 3 (com lightbox).
 - `assets/render-01/02/03.jpg` · renders de estúdio do sistema (frontal e duas perspectivas).
 - `assets/render-amb-01..07.jpg` · renders ambientados (corredor, troca de testeira, gaveta de cartuchos, navegação, ponta de gôndola, abastecimento, trilhos reguláveis).
-- Tela 6: cada pilar mostra o render que o ilustra. Tela 7: galeria de 5 renders com lightbox para os 10. Tela 8: a configuração Core usa o render frontal (`render-core.jpg`); `render-compact.jpg` e `render-flagship.jpg` ainda são placeholders e aparecem sozinhos quando existirem.
+- `assets/render-tower-01..03.jpg` · torre giratória 360° (formato flagship); `assets/render-wall-01.jpg` · módulo vertical compacto.
+- Tela 6: cada pilar mostra o render que o ilustra. Tela 7: galeria de 7 renders com lightbox para os 14. Tela 8: Compact = módulo vertical (`render-compact.jpg`), Core = sistema na gôndola (`render-core.jpg`), Flagship = torre 360° (`render-flagship.jpg`).
 
 ## Versão em arquivo único
 `python3 build-standalone.py` gera `proplan-science-system-standalone.html` com todas as imagens embutidas.

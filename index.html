@@ -296,12 +296,13 @@ body.hot #dot{transform:scale(1.6)}
 .shot.note::after{content:"Renders ilustrativos · dimensionamento final após levantamento técnico";position:absolute;left:0;right:0;bottom:0;padding:.75em .9em .6em;
   font-family:var(--mono);font-size:clamp(6.6px,.6vw,9px);letter-spacing:.1em;text-transform:uppercase;color:rgba(247,247,248,.82);pointer-events:none;
   background:linear-gradient(0deg,rgba(0,0,0,.8),rgba(0,0,0,.35) 62%,transparent)}
-.gal{display:grid;gap:clamp(7px,.9vw,15px);flex:1;min-height:0}
+.gal{display:grid;gap:clamp(7px,.9vw,15px);flex:none;height:clamp(240px,60vh,780px);min-height:0}
+.gal .shot img{position:absolute;inset:0;width:100%;height:100%}
 .gal.a{grid-template-columns:1.4fr 1fr;grid-template-rows:1fr 1fr}
 .gal.a .shot:first-child{grid-row:span 2}
 .gal .shot{height:100%;background:#000;border:none;padding:0;cursor:pointer;color:inherit;text-align:left}
 .gal .shot.fit img{object-fit:contain}
-.gal.b{grid-template-columns:1.55fr 1fr 1fr;grid-template-rows:1fr 1fr}
+.gal.b{grid-template-columns:1.5fr 1fr 1fr 1fr;grid-template-rows:1fr 1fr}
 .gal.b .shot:first-child{grid-row:span 2}
 @media(max-width:900px){.gal.b{grid-template-columns:1fr 1fr;grid-template-rows:none}.gal.b .shot:first-child{grid-column:span 2;grid-row:auto}}
 .gal .shot::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 0 var(--red);transition:box-shadow .25s;pointer-events:none;z-index:3}
@@ -314,7 +315,7 @@ body.hot #dot{transform:scale(1.6)}
   letter-spacing:.12em;text-transform:uppercase;color:rgba(247,247,248,.92);background:linear-gradient(0deg,rgba(0,0,0,.78),transparent)}
 .pane .fig.pic::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 0 var(--red);transition:box-shadow .25s;pointer-events:none}
 .pane .fig.pic:hover::after{box-shadow:inset 0 0 0 2px var(--red)}
-@media(max-width:900px){.gal{flex:none}.gal.a{grid-template-columns:1fr;grid-template-rows:none}.gal.a .shot:first-child{grid-row:auto}.gal .shot{height:auto;aspect-ratio:16/10}}
+@media(max-width:900px){.gal{height:auto}.gal.a{grid-template-columns:1fr;grid-template-rows:none}.gal.a .shot:first-child{grid-row:auto}.gal .shot{height:auto;aspect-ratio:16/10}}
 
 /* ══ xadrez Purina (capa) ══ */
 .check{display:grid;grid-template-columns:repeat(8,1fr);gap:0;aspect-ratio:1;width:100%;max-width:min(32vw,460px);justify-self:end}
@@ -408,7 +409,7 @@ body.hot #dot{transform:scale(1.6)}
 .mt .b{height:6px;background:rgba(17,17,20,.1);border-radius:3px;overflow:hidden}
 .mt .b i{display:block;height:100%;width:0;background:var(--red);border-radius:3px;transition:width .7s cubic-bezier(.2,.82,.24,1)}
 .mt .p{opacity:.75;min-width:2.4em;text-align:right}
-.cfgpane .shot{aspect-ratio:4/3;width:min(100%,56vh)}
+.cfgpane .shot{aspect-ratio:1/1;width:min(100%,52vh)}
 
 /* ══ gauge ══ */
 .gauge{position:relative;width:clamp(180px,22vw,340px);justify-self:end}
@@ -742,8 +743,10 @@ body.hot #dot{transform:scale(1.6)}
       <button class="shot" data-lb="rd:8"><span class="cp">Ponta de gôndola</span><img src="assets/render-amb-07.jpg" alt="Render · ponta de gôndola iluminada"></button>
       <button class="shot" data-lb="rd:5"><span class="cp">Skin · troca de testeira</span><img src="assets/render-amb-05.jpg" alt="Render · troca da testeira de categoria"></button>
       <button class="shot fit" data-lb="rd:3"><span class="cp">Perspectiva</span><img src="assets/render-03.jpg" alt="Render · perspectiva"></button>
+      <button class="shot fit" data-lb="rd:10"><span class="cp">Torre 360° · flagship</span><img src="assets/render-tower-01.jpg" alt="Render · torre giratória 360°"></button>
+      <button class="shot fit" data-lb="rd:13"><span class="cp">Módulo vertical · compact</span><img src="assets/render-wall-01.jpg" alt="Render · módulo vertical compacto"></button>
     </div>
-    <span class="disc">10 renders · clique para ampliar</span>
+    <span class="disc">14 renders · 3 formatos · clique para ampliar</span>
   </div>
   <div class="fo">
     <div class="bd"><img src="assets/75lab-wordmark-paper.png" alt="75 LAB"><span class="x">×</span><span class="pp sm"><svg class="cb"><use href="#cbd"/></svg><span class="tx"><b>Pro Plan</b></span></span></div>
@@ -762,9 +765,9 @@ body.hot #dot{transform:scale(1.6)}
     </div>
     <div class="sp-a" style="align-items:start">
       <div class="cfgs" id="cfgs">
-        <button class="cfg on" data-c="0"><span class="ico"><svg><use href="#i-ruler"/></svg></span><span><span class="lv">COMPACT · PINHEIROS</span><span class="t" style="display:block">Eficiência máxima</span><span class="st" style="display:block">Retrofit da gôndola. Avanço quase zero.</span></span><span class="dots"><i class="f"></i><i></i><i></i></span></button>
-        <button class="cfg" data-c="1"><span class="ico"><svg><use href="#i-layers"/></svg></span><span><span class="lv">CORE · VILA OLÍMPIA</span><span class="t" style="display:block">Versão de escala</span><span class="st" style="display:block">Frame completo, navegação e QR.</span></span><span class="dots"><i class="f"></i><i class="f"></i><i></i></span></button>
-        <button class="cfg" data-c="2"><span class="ico"><svg><use href="#i-rocket"/></svg></span><span><span class="lv">FLAGSHIP · GRANJA JULIETA</span><span class="t" style="display:block">Expressão máxima</span><span class="st" style="display:block">Ambientação ampliada e camada digital.</span></span><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span></button>
+        <button class="cfg on" data-c="0"><span class="ico"><svg><use href="#i-ruler"/></svg></span><span><span class="lv">COMPACT · PINHEIROS</span><span class="t" style="display:block">Módulo vertical</span><span class="st" style="display:block">Retrofit da gôndola. Avanço quase zero no corredor.</span></span><span class="dots"><i class="f"></i><i></i><i></i></span></button>
+        <button class="cfg" data-c="1"><span class="ico"><svg><use href="#i-layers"/></svg></span><span><span class="lv">CORE · VILA OLÍMPIA</span><span class="t" style="display:block">Sistema na gôndola</span><span class="st" style="display:block">Frame completo, navegação em 3 níveis e QR.</span></span><span class="dots"><i class="f"></i><i class="f"></i><i></i></span></button>
+        <button class="cfg" data-c="2"><span class="ico"><svg><use href="#i-rocket"/></svg></span><span><span class="lv">FLAGSHIP · GRANJA JULIETA</span><span class="t" style="display:block">Torre 360°</span><span class="st" style="display:block">Ilha giratória, ambientação ampliada e camada digital.</span></span><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span></button>
       </div>
       <div class="cfgpane" id="cfgpane">
         <div class="cp-t" id="cpt">Mesma linguagem, <em>menor footprint.</em></div>
@@ -1029,7 +1032,11 @@ body.hot #dot{transform:scale(1.6)}
         ['assets/render-amb-03.jpg','Gaveta de serviço · cartuchos e etiquetas'],
         ['assets/render-amb-06.jpg','Navegação · necessidade × fase de vida'],
         ['assets/render-amb-07.jpg','Ponta de gôndola · testeira iluminada'],
-        ['assets/render-amb-02.jpg','Abastecimento e conferência do ativo']]}
+        ['assets/render-amb-02.jpg','Abastecimento e conferência do ativo'],
+        ['assets/render-tower-01.jpg','Torre 360° · formato flagship para ilha'],
+        ['assets/render-tower-02.jpg','Torre 360° · detalhe das faces e da navegação'],
+        ['assets/render-tower-03.jpg','Torre 360° · prateleiras ajustáveis'],
+        ['assets/render-wall-01.jpg','Módulo vertical compacto · formato para lojas apertadas']]}
     };
     document.querySelectorAll('[data-lb]').forEach(function(el){
       el.onclick=function(){var a=el.getAttribute('data-lb').split(':');open(a[0],+a[1])};
@@ -1116,9 +1123,9 @@ body.hot #dot{transform:scale(1.6)}
   (function(){
     var box=document.getElementById('cfgs'); if(!box)return;
     var C=[
-      {t:'Mesma linguagem, <em>menor footprint.</em>',m:[35,25,20],n:'Compact',f:'compact'},
-      {t:'O sistema completo, <em>pronto para escalar.</em>',m:[70,60,65],n:'Core',f:'core'},
-      {t:'A expressão máxima <em>do conceito.</em>',m:[100,90,100],n:'Flagship',f:'flagship'}
+      {t:'Mesma linguagem, <em>menor footprint.</em>',m:[35,25,20],n:'Compact · módulo vertical',f:'compact'},
+      {t:'O sistema completo, <em>pronto para escalar.</em>',m:[70,60,65],n:'Core · sistema na gôndola',f:'core'},
+      {t:'A expressão máxima: <em>torre 360°.</em>',m:[100,90,100],n:'Flagship · torre 360°',f:'flagship'}
     ];
     var img=document.getElementById('cfgimg'), shot=document.getElementById('cfgshot');
     img.onerror=function(){shot.classList.add('empty')};
