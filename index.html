@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pro Plan Science System · Nestlé Purina × 75 LAB</title>
+<title>Sistema de Ciência Pro Plan · Nestlé Purina × 75 LAB</title>
 <meta name="description" content="Território premium no ponto natural. Proposta estratégica da 75 LAB para Nestlé Purina Pro Plan.">
 <meta name="author" content="75 LAB">
 <meta name="theme-color" content="#0B0B0C">
@@ -293,7 +293,7 @@ body.hot #dot{transform:scale(1.6)}
 .ph .in span{font-family:var(--mono);font-size:clamp(7.4px,.66vw,10px);letter-spacing:.14em;text-transform:uppercase;opacity:.6}
 .s.on .shot{animation:rise .8s cubic-bezier(.16,.86,.26,1) .5s backwards}
 @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-.shot.note::after{content:"Renders ilustrativos · dimensionamento final após levantamento técnico";position:absolute;left:0;right:0;bottom:0;padding:.75em .9em .6em;
+.shot.note::after{content:"Imagens ilustrativas · dimensionamento final após levantamento técnico";position:absolute;left:0;right:0;bottom:0;padding:.75em .9em .6em;
   font-family:var(--mono);font-size:clamp(6.6px,.6vw,9px);letter-spacing:.1em;text-transform:uppercase;color:rgba(247,247,248,.82);pointer-events:none;
   background:linear-gradient(0deg,rgba(0,0,0,.8),rgba(0,0,0,.35) 62%,transparent)}
 .gal{display:grid;gap:clamp(7px,.9vw,15px);flex:none;height:clamp(240px,60vh,780px);min-height:0}
@@ -409,7 +409,9 @@ body.hot #dot{transform:scale(1.6)}
 .mt .b{height:6px;background:rgba(17,17,20,.1);border-radius:3px;overflow:hidden}
 .mt .b i{display:block;height:100%;width:0;background:var(--red);border-radius:3px;transition:width .7s cubic-bezier(.2,.82,.24,1)}
 .mt .p{opacity:.75;min-width:2.4em;text-align:right}
-.cfgpane .shot{aspect-ratio:1/1;width:min(100%,52vh)}
+.cfgpane .shot{aspect-ratio:1/1;width:min(100%,52vh);cursor:pointer}
+.cfgpane .shot::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 0 var(--red);transition:box-shadow .25s;pointer-events:none;z-index:3}
+.cfgpane .shot:not(.empty):hover::after{box-shadow:inset 0 0 0 2px var(--red)}
 
 /* ══ gauge ══ */
 .gauge{position:relative;width:clamp(180px,22vw,340px);justify-self:end}
@@ -529,7 +531,7 @@ body.hot #dot{transform:scale(1.6)}
           <span class="div"></span>
           <img src="assets/75lab-wordmark-paper.png" alt="75 LAB" style="height:clamp(18px,2vw,32px)">
         </div>
-        <h1 class="mega"><span class="ln"><i>Pro Plan</i></span><span class="ln"><i>Science</i></span><span class="ln"><i><em>System</em></i></span></h1>
+        <h1 class="mega"><span class="ln"><i>Pro Plan</i></span><span class="ln"><i>Sistema</i></span><span class="ln"><i><em>de Ciência</em></i></span></h1>
         <p class="say fu">Território premium no ponto natural. <b>A ciência que orienta a escolha.</b></p>
         <div class="ctas">
           <button class="cta" data-go="1">Ver a proposta <span class="ar"><svg><use href="#ar"/></svg></span></button>
@@ -560,7 +562,7 @@ body.hot #dot{transform:scale(1.6)}
     <div class="g g3 keep">
       <div class="stat fu"><div class="num"><span data-n="54">0</span></div><div class="lb">itens no portfólio seco</div><div class="sb">Eram 41. Mais fases, portes e necessidades.</div></div>
       <div class="stat fu"><div class="num">+<span data-n="30">0</span><u>%</u></div><div class="lb">de expansão de portfólio</div><div class="sb">Relançamento no Brasil com carne como primeiro ingrediente.</div></div>
-      <div class="stat fu"><div class="num"><span data-n="2">0</span><u>×</u></div><div class="lb">share em dois anos</div><div class="sb">Ambição declarada. Foco em pet shops e clínicas.</div></div>
+      <div class="stat fu"><div class="num"><span data-n="2">0</span><u>×</u></div><div class="lb">participação de mercado em dois anos</div><div class="sb">Ambição declarada. Foco em pet shops e clínicas.</div></div>
     </div>
     <div class="ctas"><button class="cta" data-go="2">Mas o PDV ainda não mostra isso <span class="ar"><svg><use href="#ar"/></svg></span></button></div>
   </div>
@@ -604,7 +606,7 @@ body.hot #dot{transform:scale(1.6)}
 
 <!-- 04 ─────────── O SHOPPER ─────────── -->
 <section class="s">
-  <div class="meta"><span class="l">03 · O shopper</span><span class="r">Fonte: CBNA Pet 2025</span></div>
+  <div class="meta"><span class="l">03 · O tutor</span><span class="r">Fonte: CBNA Pet 2025</span></div>
   <div class="hair"></div><div class="bar"></div>
   <div class="body">
     <div class="sp-a">
@@ -662,7 +664,7 @@ body.hot #dot{transform:scale(1.6)}
 
 <!-- 06 ─────────── OS 4 PILARES ─────────── -->
 <section class="s paper">
-  <div class="meta"><span class="l">05 · Pro Plan Science System</span><span class="r">Clique em cada pilar</span></div>
+  <div class="meta"><span class="l">05 · Sistema de Ciência Pro Plan</span><span class="r">Clique em cada pilar</span></div>
   <div class="hair"></div><div class="bar"></div>
   <div class="body" style="gap:clamp(12px,1.8vw,30px)">
     <div class="stack" style="gap:clamp(6px,.8vw,12px)">
@@ -670,9 +672,9 @@ body.hot #dot{transform:scale(1.6)}
       <h2 class="mega xs"><span class="ln"><i>Quatro pilares. <em>Um território.</em></i></span></h2>
     </div>
     <div class="tabs" id="tabs">
-      <button class="tab on" data-p="0"><span class="ico"><svg><use href="#i-layers"/></svg></span><span class="n">PILAR 01</span><span class="t">Core + Skin</span></button>
+      <button class="tab on" data-p="0"><span class="ico"><svg><use href="#i-layers"/></svg></span><span class="n">PILAR 01</span><span class="t">Estrutura + Camada visual</span></button>
       <button class="tab" data-p="1"><span class="ico"><svg><use href="#i-sign"/></svg></span><span class="n">PILAR 02</span><span class="t">Navegação em 3 níveis</span></button>
-      <button class="tab" data-p="2"><span class="ico"><svg><use href="#i-tag"/></svg></span><span class="n">PILAR 03</span><span class="t">SKU Cartridge</span></button>
+      <button class="tab" data-p="2"><span class="ico"><svg><use href="#i-tag"/></svg></span><span class="n">PILAR 03</span><span class="t">Cartucho de SKU</span></button>
       <button class="tab" data-p="3"><span class="ico"><svg><use href="#i-shield"/></svg></span><span class="n">PILAR 04</span><span class="t">Rastreabilidade do display</span></button>
     </div>
     <div class="panes" id="panes">
@@ -680,12 +682,12 @@ body.hot #dot{transform:scale(1.6)}
         <div class="stack">
           <h3>A estrutura fica. <em>A comunicação muda.</em></h3>
           <ul class="bl">
-            <li><svg class="ic"><use href="#i-check"/></svg><span><b>Core frame</b> durável, integrado à gôndola existente.</span></li>
-            <li><svg class="ic"><use href="#i-check"/></svg><span><b>Skins</b> intercambiáveis: testeiras, réguas e campanhas.</span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span><b>Estrutura fixa</b> durável, integrada à gôndola existente.</span></li>
+            <li><svg class="ic"><use href="#i-check"/></svg><span><b>Camadas visuais</b> intercambiáveis: testeiras, réguas e campanhas.</span></li>
             <li><svg class="ic"><use href="#i-check"/></svg><span>Cresce na <b>vertical</b>, não no chão.</span></li>
           </ul>
         </div>
-        <button class="fig pic" data-lb="rd:5" aria-label="Skin · troca da testeira de categoria"><img src="assets/render-amb-05.jpg" alt="Skin · troca da testeira de categoria"><span class="cp">Skin · troca da testeira de categoria</span></button>
+        <button class="fig pic" data-lb="rd:5" aria-label="Camada visual · troca da testeira de categoria"><img src="assets/render-amb-05.jpg" alt="Camada visual · troca da testeira de categoria"><span class="cp">Camada visual · troca da testeira de categoria</span></button>
       </div>
       <div class="pane">
         <div class="stack">
@@ -715,7 +717,7 @@ body.hot #dot{transform:scale(1.6)}
           <ul class="bl">
             <li><svg class="ic"><use href="#i-qr"/></svg><span><b>QR único</b> por ativo, com histórico por loja.</span></li>
             <li><svg class="ic"><use href="#i-camera"/></svg><span><b>Manutenção preventiva</b> do display no ponto de venda.</span></li>
-            <li><svg class="ic"><use href="#i-chart"/></svg><span><b>Retail Health Score</b>: nota de saúde de cada ativo.</span></li>
+            <li><svg class="ic"><use href="#i-chart"/></svg><span><b>Índice de saúde</b>: nota de cada display no ponto de venda.</span></li>
           </ul>
         </div>
         <button class="fig pic" data-lb="rd:9" aria-label="Abastecimento e conferência do ativo"><img src="assets/render-amb-02.jpg" alt="Abastecimento e conferência do ativo"><span class="cp">Abastecimento e conferência do ativo</span></button>
@@ -730,7 +732,7 @@ body.hot #dot{transform:scale(1.6)}
 
 <!-- 07 ─────────── RENDERS ─────────── -->
 <section class="s">
-  <div class="meta"><span class="l">06 · A solução em imagem</span><span class="r">Renders 3D · time de design 75 LAB</span></div>
+  <div class="meta"><span class="l">06 · A solução em imagem</span><span class="r">Imagens 3D · time de design 75 LAB</span></div>
   <div class="hair"></div><div class="bar"></div>
   <div class="body" style="gap:clamp(10px,1.4vw,24px)">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap">
@@ -738,15 +740,15 @@ body.hot #dot{transform:scale(1.6)}
       <p class="say fu" style="max-width:34ch;font-size:clamp(11px,1.05vw,16px)">Presença vertical, navegação clara e <b>zero avanço no corredor.</b></p>
     </div>
     <div class="gal b">
-      <button class="shot note" data-lb="rd:0"><span class="cp">Render · Território no corredor</span><img src="assets/render-amb-01.jpg" alt="Render · território Pro Plan ambientado no corredor"></button>
-      <button class="shot fit" data-lb="rd:1"><span class="cp">Sistema completo · frontal</span><img src="assets/render-01.jpg" alt="Render · vista frontal"></button>
-      <button class="shot" data-lb="rd:8"><span class="cp">Ponta de gôndola</span><img src="assets/render-amb-07.jpg" alt="Render · ponta de gôndola iluminada"></button>
-      <button class="shot" data-lb="rd:5"><span class="cp">Skin · troca de testeira</span><img src="assets/render-amb-05.jpg" alt="Render · troca da testeira de categoria"></button>
-      <button class="shot fit" data-lb="rd:3"><span class="cp">Perspectiva</span><img src="assets/render-03.jpg" alt="Render · perspectiva"></button>
-      <button class="shot fit" data-lb="rd:10"><span class="cp">Torre 360° · flagship</span><img src="assets/render-tower-01.jpg" alt="Render · torre giratória 360°"></button>
-      <button class="shot fit" data-lb="rd:13"><span class="cp">Módulo vertical · compact</span><img src="assets/render-wall-01.jpg" alt="Render · módulo vertical compacto"></button>
+      <button class="shot note" data-lb="rd:0"><span class="cp">Imagem 3D · Território no corredor</span><img src="assets/render-amb-01.jpg" alt="Imagem 3D · território Pro Plan ambientado no corredor"></button>
+      <button class="shot fit" data-lb="rd:1"><span class="cp">Sistema completo · frontal</span><img src="assets/render-01.jpg" alt="Imagem 3D · vista frontal"></button>
+      <button class="shot" data-lb="rd:8"><span class="cp">Ponta de gôndola</span><img src="assets/render-amb-07.jpg" alt="Imagem 3D · ponta de gôndola iluminada"></button>
+      <button class="shot" data-lb="rd:5"><span class="cp">Camada visual · troca de testeira</span><img src="assets/render-amb-05.jpg" alt="Imagem 3D · troca da testeira de categoria"></button>
+      <button class="shot fit" data-lb="rd:3"><span class="cp">Perspectiva</span><img src="assets/render-03.jpg" alt="Imagem 3D · perspectiva"></button>
+      <button class="shot fit" data-lb="rd:10"><span class="cp">Torre 360° · configuração máxima</span><img src="assets/render-tower-01.jpg" alt="Imagem 3D · torre giratória 360°"></button>
+      <button class="shot fit" data-lb="rd:13"><span class="cp">Módulo vertical · configuração compacta</span><img src="assets/render-wall-01.jpg" alt="Imagem 3D · módulo vertical compacto"></button>
     </div>
-    <span class="disc">14 renders · 3 formatos · clique para ampliar</span>
+    <span class="disc">14 imagens 3D · 3 formatos · clique para ampliar</span>
   </div>
   <div class="fo">
     <div class="bd"><img src="assets/75lab-wordmark-paper.png" alt="75 LAB"><span class="x">×</span><span class="pp sm"><svg class="cb"><use href="#cbd"/></svg><span class="tx"><b>Pro Plan</b></span></span></div>
@@ -765,18 +767,18 @@ body.hot #dot{transform:scale(1.6)}
     </div>
     <div class="sp-a" style="align-items:start">
       <div class="cfgs" id="cfgs">
-        <button class="cfg on" data-c="0"><span class="ico"><svg><use href="#i-ruler"/></svg></span><span><span class="lv">COMPACT · PINHEIROS</span><span class="t" style="display:block">Módulo vertical</span><span class="st" style="display:block">Retrofit da gôndola. Avanço quase zero no corredor.</span></span><span class="dots"><i class="f"></i><i></i><i></i></span></button>
-        <button class="cfg" data-c="1"><span class="ico"><svg><use href="#i-layers"/></svg></span><span><span class="lv">CORE · VILA OLÍMPIA</span><span class="t" style="display:block">Sistema na gôndola</span><span class="st" style="display:block">Frame completo, navegação em 3 níveis e QR.</span></span><span class="dots"><i class="f"></i><i class="f"></i><i></i></span></button>
-        <button class="cfg" data-c="2"><span class="ico"><svg><use href="#i-rocket"/></svg></span><span><span class="lv">FLAGSHIP · GRANJA JULIETA</span><span class="t" style="display:block">Torre 360°</span><span class="st" style="display:block">Ilha giratória, ambientação ampliada e camada digital.</span></span><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span></button>
+        <button class="cfg on" data-c="0"><span class="ico"><svg><use href="#i-ruler"/></svg></span><span><span class="lv">COMPACTA · PINHEIROS</span><span class="t" style="display:block">Módulo vertical</span><span class="st" style="display:block">Retrofit da gôndola. Avanço quase zero no corredor.</span></span><span class="dots"><i class="f"></i><i></i><i></i></span></button>
+        <button class="cfg" data-c="1"><span class="ico"><svg><use href="#i-layers"/></svg></span><span><span class="lv">COMPLETA · VILA OLÍMPIA</span><span class="t" style="display:block">Sistema na gôndola</span><span class="st" style="display:block">Frame completo, navegação em 3 níveis e QR.</span></span><span class="dots"><i class="f"></i><i class="f"></i><i></i></span></button>
+        <button class="cfg" data-c="2"><span class="ico"><svg><use href="#i-rocket"/></svg></span><span><span class="lv">MÁXIMA · GRANJA JULIETA</span><span class="t" style="display:block">Torre 360°</span><span class="st" style="display:block">Ilha giratória, ambientação ampliada e camada digital.</span></span><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i></span></button>
       </div>
       <div class="cfgpane" id="cfgpane">
-        <div class="cp-t" id="cpt">Mesma linguagem, <em>menor footprint.</em></div>
+        <div class="cp-t" id="cpt">Mesma linguagem, <em>menor ocupação de chão.</em></div>
         <div class="meters">
           <div class="mt"><span class="k">Módulos</span><span class="b"><i data-m="0"></i></span><span class="p" data-mp="0">0%</span></div>
           <div class="mt"><span class="k">Intervenção</span><span class="b"><i data-m="1"></i></span><span class="p" data-mp="1">0%</span></div>
           <div class="mt"><span class="k">Camada digital</span><span class="b"><i data-m="2"></i></span><span class="p" data-mp="2">0%</span></div>
         </div>
-        <div class="shot" id="cfgshot" style="background:#000"><span class="cp" id="cfgcp">Render · Compact</span><img id="cfgimg" src="assets/render-compact.jpg" alt="Render da configuração" style="object-fit:contain"><div class="ph"><div class="in"><svg viewBox="0 0 24 24"><use href="#i-image"/></svg><b id="cfgph">Render · Compact</b><span>espaço reservado</span></div></div></div>
+        <div class="shot" id="cfgshot" style="background:#000"><span class="cp" id="cfgcp">Imagem 3D · Compacta</span><img id="cfgimg" src="assets/render-compact.jpg" alt="Imagem 3D da configuração" style="object-fit:contain"><div class="ph"><div class="in"><svg viewBox="0 0 24 24"><use href="#i-image"/></svg><b id="cfgph">Imagem 3D · Compacta</b><span>espaço reservado</span></div></div></div>
       </div>
     </div>
   </div>
@@ -788,7 +790,7 @@ body.hot #dot{transform:scale(1.6)}
 
 <!-- 09 ─────────── COMO MEDIMOS ─────────── -->
 <section class="s">
-  <div class="meta"><span class="l">08 · Como medimos</span><span class="r">Piloto medido pré × pós e vs. lojas controle</span></div>
+  <div class="meta"><span class="l">08 · Como medimos</span><span class="r">Piloto medido antes × depois e contra lojas de controle</span></div>
   <div class="hair"></div><div class="bar"></div>
   <div class="body">
     <div class="sp">
@@ -799,14 +801,14 @@ body.hot #dot{transform:scale(1.6)}
           <div class="row"><span class="k"><svg class="ic"><use href="#i-tag"/></svg>Execução</span><span class="v">% de SKU no lugar certo</span></div>
           <div class="row"><span class="k"><svg class="ic"><use href="#i-box"/></svg>Disponibilidade</span><span class="v">Ruptura por SKU</span></div>
           <div class="row"><span class="k"><svg class="ic"><use href="#i-eye"/></svg>Visibilidade</span><span class="v">Distância de reconhecimento</span></div>
-          <div class="row"><span class="k"><svg class="ic"><use href="#i-clock"/></svg>Shopper</span><span class="v">Tempo para encontrar</span></div>
-          <div class="row"><span class="k"><svg class="ic"><use href="#i-chart"/></svg>Negócio</span><span class="v">Sell-out por loja</span></div>
+          <div class="row"><span class="k"><svg class="ic"><use href="#i-clock"/></svg>Tutor</span><span class="v">Tempo para encontrar</span></div>
+          <div class="row"><span class="k"><svg class="ic"><use href="#i-chart"/></svg>Negócio</span><span class="v">Vendas por loja</span></div>
         </div>
       </div>
       <div class="stack" style="align-items:flex-end;gap:clamp(10px,1.2vw,20px)">
         <div class="gauge fu" style="--o:20">
           <svg viewBox="0 0 200 120"><path class="tr" d="M20 110A80 80 0 0 1 180 110"/><path class="pr" d="M20 110A80 80 0 0 1 180 110"/></svg>
-          <div class="v"><b><span data-n="92">0</span></b><span>Retail Health Score</span></div>
+          <div class="v"><b><span data-n="92">0</span></b><span>Índice de saúde do display</span></div>
         </div>
         <span class="disc">exemplo ilustrativo · nota por ativo, a cada 15 dias</span>
       </div>
@@ -829,21 +831,21 @@ body.hot #dot{transform:scale(1.6)}
     </div>
     <div class="steps" data-seq>
       <div class="step"><span class="ico"><svg><use href="#i-ruler"/></svg></span><span class="n">FASE 01</span><span class="t">Diagnóstico técnico</span><span class="tl"><i></i></span><span class="d">Medição, planograma e baseline fotográfico.</span></div>
-      <div class="step"><span class="ico"><svg><use href="#i-pen"/></svg></span><span class="n">FASE 02</span><span class="t">Arquitetura e design</span><span class="tl"><i></i></span><span class="d">Regras do sistema, módulos, skins e navegação.</span></div>
+      <div class="step"><span class="ico"><svg><use href="#i-pen"/></svg></span><span class="n">FASE 02</span><span class="t">Arquitetura e design</span><span class="tl"><i></i></span><span class="d">Regras do sistema, módulos, camadas visuais e navegação.</span></div>
       <div class="step"><span class="ico"><svg><use href="#i-wrench"/></svg></span><span class="n">FASE 03</span><span class="t">Protótipo</span><span class="tl"><i></i></span><span class="d">Resistência, montagem e teste de corredor.</span></div>
-      <div class="step"><span class="ico"><svg><use href="#i-rocket"/></svg></span><span class="n">FASE 04</span><span class="t">Piloto em 3 lojas</span><span class="tl"><i></i></span><span class="d">Compact, Core e Flagship. Auditoria quinzenal.</span></div>
+      <div class="step"><span class="ico"><svg><use href="#i-rocket"/></svg></span><span class="n">FASE 04</span><span class="t">Piloto em 3 lojas</span><span class="tl"><i></i></span><span class="d">Compacta, Completa e Máxima. Auditoria quinzenal.</span></div>
     </div>
     <div class="stack fu" style="gap:clamp(8px,1vw,14px)">
       <span class="disc" style="opacity:.75">O que precisamos de vocês</span>
       <div class="chips">
         <span class="chip"><svg class="ic" style="color:currentColor"><use href="#i-doc"/></svg>Planograma por loja</span>
-        <span class="chip"><svg class="ic" style="color:currentColor"><use href="#i-box"/></svg>Master de SKUs 2026</span>
+        <span class="chip"><svg class="ic" style="color:currentColor"><use href="#i-box"/></svg>Cadastro de SKUs 2026</span>
         <span class="chip"><svg class="ic" style="color:currentColor"><use href="#i-ruler"/></svg>Medidas das gôndolas</span>
-        <span class="chip"><svg class="ic" style="color:currentColor"><use href="#i-check"/></svg>Brand guide e claims</span>
+        <span class="chip"><svg class="ic" style="color:currentColor"><use href="#i-check"/></svg>Manual da marca e alegações aprovadas</span>
       </div>
     </div>
     <div class="ctas">
-      <a class="cta" href="mailto:marketing@75lab.com.br?subject=Pro%20Plan%20Science%20System%20%C2%B7%20diagn%C3%B3stico%20t%C3%A9cnico">Agendar o diagnóstico <span class="ar"><svg><use href="#i-mail"/></svg></span></a>
+      <a class="cta" href="mailto:marketing@75lab.com.br?subject=Sistema%20de%20Ci%C3%AAncia%20Pro%20Plan%20%C2%B7%20diagn%C3%B3stico%20t%C3%A9cnico">Agendar o diagnóstico <span class="ar"><svg><use href="#i-mail"/></svg></span></a>
       <button class="cta gh" data-go="0">Voltar ao início</button>
     </div>
   </div>
@@ -873,7 +875,7 @@ body.hot #dot{transform:scale(1.6)}
 
 <script>
 (function(){
-  var T=["Capa · Pro Plan Science System","O momento da marca","O paradoxo · visita técnica","O shopper","A tese","Os quatro pilares","A solução em imagem","Três lojas, um sistema","Como medimos","Próximo passo"];
+  var T=["Capa · Sistema de Ciência Pro Plan","O momento da marca","O paradoxo · visita técnica","O tutor","A tese","Os quatro pilares","A solução em imagem","Três lojas, um sistema","Como medimos","Próximo passo"];
   var sl=[].slice.call(document.querySelectorAll('.s')), i=0, n=sl.length, busy=false;
   var menu=document.getElementById('menu'), ml=document.getElementById('mlist'), pro=document.getElementById('pro'), wipe=document.getElementById('wipe');
 
@@ -1022,18 +1024,18 @@ body.hot #dot{transform:scale(1.6)}
         ['assets/vt/pi-00.jpg','Fachada · Dog\'s Day Pinheiros'],
         ['assets/vt/pi-12.jpg','Prateleira · excesso de claims'],
         ['assets/vt/pi-32.jpg','Display de piso concorrente']]},
-      rd:{n:'Pro Plan Science System · renders ilustrativos',h:'A solução em imagem',p:[
+      rd:{n:'Sistema de Ciência Pro Plan · imagens 3D ilustrativas',h:'A solução em imagem',p:[
         ['assets/render-amb-01.jpg','Território Pro Plan no corredor · vista geral'],
         ['assets/render-01.jpg','Sistema completo · vista frontal'],
         ['assets/render-02.jpg','Perspectiva · testeira, navegação e Veterinary Diets'],
         ['assets/render-03.jpg','Perspectiva · lateral iluminada'],
-        ['assets/render-amb-04.jpg','Core frame · trilhos e prateleiras reguláveis'],
-        ['assets/render-amb-05.jpg','Skin · troca da testeira de categoria'],
+        ['assets/render-amb-04.jpg','Estrutura fixa · trilhos e prateleiras reguláveis'],
+        ['assets/render-amb-05.jpg','Camada visual · troca da testeira de categoria'],
         ['assets/render-amb-03.jpg','Gaveta de serviço · cartuchos e etiquetas'],
         ['assets/render-amb-06.jpg','Navegação · necessidade × fase de vida'],
         ['assets/render-amb-07.jpg','Ponta de gôndola · testeira iluminada'],
         ['assets/render-amb-02.jpg','Abastecimento e conferência do ativo'],
-        ['assets/render-tower-01.jpg','Torre 360° · formato flagship para ilha'],
+        ['assets/render-tower-01.jpg','Torre 360° · configuração máxima, para ilha'],
         ['assets/render-tower-02.jpg','Torre 360° · detalhe das faces e da navegação'],
         ['assets/render-tower-03.jpg','Torre 360° · prateleiras ajustáveis'],
         ['assets/render-wall-01.jpg','Módulo vertical compacto · formato para lojas apertadas']]}
@@ -1082,7 +1084,7 @@ body.hot #dot{transform:scale(1.6)}
     document.getElementById('lbp').onclick=function(){step(-1)};
     document.getElementById('lbnx').onclick=function(){step(1)};
     lb.addEventListener('click',function(e){if(e.target===lb||e.target.classList.contains('stage'))lb.classList.remove('open')});
-    window.__lbStep=step;
+    window.__lbStep=step; window.__lbOpen=open;
   })();
 
   /* fluxo de → para */
@@ -1123,9 +1125,9 @@ body.hot #dot{transform:scale(1.6)}
   (function(){
     var box=document.getElementById('cfgs'); if(!box)return;
     var C=[
-      {t:'Mesma linguagem, <em>menor footprint.</em>',m:[35,25,20],n:'Compact · módulo vertical',f:'compact'},
-      {t:'O sistema completo, <em>pronto para escalar.</em>',m:[70,60,65],n:'Core · sistema na gôndola',f:'core'},
-      {t:'A expressão máxima: <em>torre 360°.</em>',m:[100,90,100],n:'Flagship · torre 360°',f:'flagship'}
+      {t:'Mesma linguagem, <em>menor ocupação de chão.</em>',m:[35,25,20],n:'Compacta · módulo vertical',f:'compact',lb:13},
+      {t:'O sistema completo, <em>pronto para escalar.</em>',m:[70,60,65],n:'Completa · sistema na gôndola',f:'core',lb:1},
+      {t:'A expressão máxima: <em>torre 360°.</em>',m:[100,90,100],n:'Máxima · torre 360°',f:'flagship',lb:10}
     ];
     var img=document.getElementById('cfgimg'), shot=document.getElementById('cfgshot');
     img.onerror=function(){shot.classList.add('empty')};
@@ -1138,10 +1140,12 @@ body.hot #dot{transform:scale(1.6)}
         document.querySelector('[data-m="'+j+'"]').style.width=v+'%';
         document.querySelector('[data-mp="'+j+'"]').textContent=v+'%';
       });
-      document.getElementById('cfgcp').textContent='Render · '+c.n;
-      document.getElementById('cfgph').textContent='Render · '+c.n;
+      document.getElementById('cfgcp').textContent='Imagem 3D · '+c.n;
+      document.getElementById('cfgph').textContent='Imagem 3D · '+c.n;
       shot.classList.add('empty'); img.src='assets/render-'+c.f+'.jpg';
+      shot.setAttribute('data-lbi',c.lb);
     }
+    shot.onclick=function(){ if(!shot.classList.contains('empty')&&window.__lbOpen) window.__lbOpen('rd',+shot.getAttribute('data-lbi')) };
     box.querySelectorAll('.cfg').forEach(function(b){b.onclick=function(){set(+b.getAttribute('data-c'))}});
     set(0);
   })();

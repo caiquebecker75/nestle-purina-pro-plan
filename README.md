@@ -1,4 +1,4 @@
-# Pro Plan Science System · Nestlé Purina × 75 LAB
+# Sistema de Ciência Pro Plan · Nestlé Purina × 75 LAB
 
 Apresentação comercial em HTML (10 telas) da proposta estratégica da 75 LAB para o
 ponto natural de Pro Plan no piloto Dog's Day (Pinheiros, Vila Olímpia, Granja Julieta).
@@ -13,7 +13,7 @@ ponto natural de Pro Plan no piloto Dog's Day (Pinheiros, Vila Olímpia, Granja 
 - `assets/render-01/02/03.jpg` · renders de estúdio do sistema (frontal e duas perspectivas).
 - `assets/render-amb-01..07.jpg` · renders ambientados (corredor, troca de testeira, gaveta de cartuchos, navegação, ponta de gôndola, abastecimento, trilhos reguláveis).
 - `assets/render-tower-01..03.jpg` · torre giratória 360° (formato flagship); `assets/render-wall-01.jpg` · módulo vertical compacto.
-- Tela 6: cada pilar mostra o render que o ilustra. Tela 7: galeria de 7 renders com lightbox para os 14. Tela 8: Compact = módulo vertical (`render-compact.jpg`), Core = sistema na gôndola (`render-core.jpg`), Flagship = torre 360° (`render-flagship.jpg`).
+- Tela 6: cada pilar mostra o render que o ilustra. Tela 7: galeria de 7 renders com lightbox para os 14. Tela 8: Compacta = módulo vertical (`render-compact.jpg`), Completa = sistema na gôndola (`render-core.jpg`), Máxima = torre 360° (`render-flagship.jpg`). Todas as imagens do deck abrem em tela cheia ao clicar.
 
 ## Versão em arquivo único
 `python3 build-standalone.py` gera `proplan-science-system-standalone.html` com todas as imagens embutidas.
@@ -26,3 +26,7 @@ ponto natural de Pro Plan no piloto Dog's Day (Pinheiros, Vila Olímpia, Granja 
 
 ## Fonte do conteúdo
 `Estrategia_Nestle_Purina_Pro_Plan_75LAB.docx` (01/09/2026) e visita técnica de 31/08/2026.
+
+## Nomenclatura (em português)
+Sistema de Ciência Pro Plan · Estrutura + Camada visual · Navegação em 3 níveis · Cartucho de SKU ·
+Rastreabilidade do display · Índice de saúde do display · configurações Compacta / Completa / Máxima.
